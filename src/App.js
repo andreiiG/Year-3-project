@@ -36,35 +36,42 @@ class App extends Component {
     }
   }
   render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-        <h1>Hello {user.username}</h1>
-        <AmplifySignOut />
-        </header>
-        <body>
-            <button onClick={getuserscore}>getYourScores</button> 
-            <form name="form" id="form">
-              <label>Monitor Diagonal:</label>
-              <select name="monitorSize" id="monitorSize">
-                <option value="10">10"</option>
-                <option value="11">11"</option>
-                <option value="12">12"</option>
-                <option value="13">13"</option>
-                <option value="14">14"</option>
-                <option value="15">15"</option>
-                <option value="16">16"</option>
-                <option value="17">17"</option>
-                <option value="18">18"</option>
-                <option value="19">19"</option>
-                <option value="20">20"</option>
-              </select> 
-            <br/>
-            </form>
-        </body>
-      </div>
-    );
+    if(starttest){
+
+    }else{
+      return (
+        <div className="App">
+          <header className="App-header">
+          <h1>Hello {Auth.user.username}</h1>
+          <AmplifySignOut />
+          </header>
+          <body>
+              <button onClick={getuserscore}>getYourScores</button> 
+              <form name="form" id="form">
+                <label>Monitor Diagonal:</label>
+                <select name="monitorSize" id="monitorSize">
+                  <option value="10">10"</option>
+                  <option value="11">11"</option>
+                  <option value="12">12"</option>
+                  <option value="13">13"</option>
+                  <option value="14">14"</option>
+                  <option value="15">15"</option>
+                  <option value="16">16"</option>
+                  <option value="17">17"</option>
+                  <option value="18">18"</option>
+                  <option value="19">19"</option>
+                  <option value="20">20"</option>
+                </select> 
+              <br/>
+              </form>
+          </body>
+        </div>
+      );
+    }
   }
+}
+class firstGame extends Component{
+
 }
 
 export default withAuthenticator(App, true);
