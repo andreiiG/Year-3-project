@@ -1,12 +1,5 @@
 {
-  "auth": {
-    "websiteyear3": {
-      "service": "Cognito",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [],
-      "customAuth": false
-    }
-  },
+  "auth": {},
   "api": {
     "myapi": {
       "service": "AppSync",
