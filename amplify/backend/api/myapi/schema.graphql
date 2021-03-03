@@ -1,0 +1,11 @@
+type Scores @model 
+ @key(name :"usernameScores", fields:["basetype","username"], queryField:"ScoresByUsernameAndBaseType")
+{
+  id: ID!
+  username: String!
+  scoreTest1: Int!
+  scoreTest2: Int!
+  scoreTest3: Int!
+  sleephours: Int!
+  basetype: String!
+}
