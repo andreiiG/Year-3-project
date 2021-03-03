@@ -3,40 +3,52 @@ import logo from './logo.svg';
 import './App.css';
 import { withAuthenticator } from 'aws-amplify-react'
 import Amplify, { Auth,API,graphqlOperation } from 'aws-amplify';
+import { AmplifyAuthenticator, AmplifySignUp, AmplifySignOut } from '@aws-amplify/ui-react';
 import aws_exports from './aws-exports';
+import {listScoress} from './graphql/queries';
+import {createScores} from './graphql/mutations'
 Amplify.configure(aws_exports);
 
 class App extends Component {
-  async createScoresf(dictionary){
-    try {
-      //const createdScore= dictionary
-      const createdScore= { username:user.username ,scoreTest1 : 200, scoreTest2 : 800 ,scoreTest3: 200 ,sleephours: 10 ,basetype : 'score'}
-      //const response = 
-      await API.graphql(graphqlOperation(createScores,{input : createdScore }))
-      console.log('user created ')
-    } catch (error) {
-      console.log('user was not created ',error)
-    }
+  componentDidMount = () => {
+    this.getuserscore()
   }
-  async getuserscore(){
-    try {
-        const userToGet = user.username
+    state={
+      testStarted : false,
+      userscores :  []
+    }
+  //username=Auth.user.username
+ //  const[userscores, usersetScores] = useState([]);
+  // async createScoresf(dictionary){
+  //   try {
+  //     //const createdScore= dictionary
+  //     const createdScore= { username: "test" ,scoreTest1 : 200, scoreTest2 : 800 ,scoreTest3: 200 ,sleephours: 10 ,basetype : 'score'}
+  //     //const response = 
+  //     await API.graphql(graphqlOperation(createScores,{input : createdScore }))
+  //     console.log('user created ')
+  //   } catch (error) {
+  //     console.log('user was not created ',error)
+  //   }
+  // }
+   async getuserscore(){
+     try {
+         const userToGet = "user.username"
         const response = await API.graphql(graphqlOperation(listScoress,{
-          filter:{
-            username :{
-              eq: userToGet
-            }
-          }
-        }))
-        const repsponsedata= response.data.listScoress.items
-        usersetScores(userscores)
-        console.log('this user has this many entries',repsponsedata)
-    } catch (error) {
+           filter:{
+             username :{
+             eq: userToGet
+             }
+           }
+         }))
+         const repsponsedata= response.data.listScoress.items
+         this.setState({items: repsponsedata})
+         console.log('this user has this many entries',repsponsedata)
+     } catch (error) {
       
-    }
-  }
+     }
+   }
   render() {
-    if(starttest){
+    if(this.state.testStarted){
 
     }else{
       return (
@@ -46,7 +58,6 @@ class App extends Component {
           <AmplifySignOut />
           </header>
           <body>
-              <button onClick={getuserscore}>getYourScores</button> 
               <form name="form" id="form">
                 <label>Monitor Diagonal:</label>
                 <select name="monitorSize" id="monitorSize">
