@@ -20,6 +20,7 @@ class App extends Component {
     this.getuserscore = this.getuserscore.bind(this);
     this.nextInstruction = this.nextInstruction.bind(this);
     this.lastInstruction= this.lastInstruction.bind(this);
+    this.startTest =this.startTest(this);
     
 }
   componentDidMount = () => {
@@ -34,7 +35,39 @@ class App extends Component {
       display : false,
       width: undefined,
       height: undefined,
-      instructionPageTest1 : 1
+      instructionPageTest1 : 1,
+      trialCount : 0,
+      trialResult : [],
+      currentTrial : 0
+    }
+     startTest(blockNumber, inputTrialSet) {
+      //document.onkeydown = earlyEnd;			//Set the early interrupt
+     // currentBlock = blockNumber;				//Keep track of the current block
+		//The current data set uses 32 trials/test 
+      this.setState({trialCount : 32})		//All tests are 32 trials, but check anyway
+      //trialResults = [];						//We'll keep our results in this array
+      //practiceFeedbackUP = document.getElementById('practiceFeedbackUP');
+      //practiceFeedbackDOWN = document.getElementById('practiceFeedbackDOWN');
+     // iPadLeft = 	document.getElementById('iPadLeft');
+    //  iPadRight = document.getElementById('iPadRight');
+      
+      //Setup the test in random order
+      // for (trialIndex=currentTrial; trialIndex<(trialCount+currentTrial); trialIndex++) {
+      //   sourceTrial = randomNumber(0,(inputTrialSet.length-1));		//Get a random trial
+      //   trialResults[trialIndex] = inputTrialSet[sourceTrial];	//Set up the results to contain the trial info
+      //   inputTrialSet.splice(sourceTrial,1);							//Remove the current trial from the pool, so we don't get it again
+      // }
+      
+      //Go through the test in reverse order and setup the view stack so we can quickly flip through them during testing
+      // for (reverseTrialIndex=(trialResults.length-1);reverseTrialIndex>=currentTrial;reverseTrialIndex--) {
+      //   pushView('cueType10');
+      //   pushView(trialResults[reverseTrialIndex][1]+trialResults[reverseTrialIndex][2]+trialResults[reverseTrialIndex][4]);
+      //   pushView('cueType10');
+      //   pushView('cueType'+trialResults[reverseTrialIndex][0]+trialResults[reverseTrialIndex][3]);
+      //   pushView('cueType10');
+      // }
+      // pushView('blankView');
+      // startTrial();							//Start the first trial
     }
   async createScoresf(dictionary){
     try {
@@ -87,11 +120,11 @@ class App extends Component {
                   <div> 
                     <div id="instructionPage1" className="instructionsPage"  >
                       <p>This test measures some aspects of attention, and takes about 10 minutes to complete.</p>
-                      <p>You will see 5 <b><span className='targetTypeRef'>target</span>s</b> on the computer screen</p>
+                      <p>You will see 5 arrows on the computer screen</p>
                       <center>
                       <img src={ArrowRight} alt="right Arrow" /><img src={(ArrowRight)} alt="right Arrow" /><img src={ArrowRight}  alt="right Arrow" /><img src={ArrowRight} alt="right Arrow" /><img src={ArrowRight} alt="right Arrow" />
                       </center>
-                      <p>You must pay attention to the <b><i>CENTRAL</i></b> <span className='targetTypeRef'>target</span>, and indicate which way it is pointing by pressing the LEFT or RIGHT arrow keys on the keyboard.
+                      <p>You must pay attention to the <b><i>CENTRAL</i></b> arrows, and indicate which way it is pointing by pressing the LEFT or RIGHT arrow keys on the keyboard.
                       </p>
                       <input className="previousButton" type="button" name="previous" value="Previous" onClick={this.test1MainPage} />
                       <input className="nextButton" type="button" name="next" value="Next" onClick={this.nextInstruction}/>
@@ -102,7 +135,7 @@ class App extends Component {
         case 2:{
           return(
             <div id="instructionPage2" className="instructionsPage">
-            <p>There will always be a cross in the centre of the screen, and the <span className='targetTypeRef'>target</span>s will appear just above or below the cross.</p>
+            <p>There will always be a cross in the centre of the screen, and the arrows will appear just above or below the cross.</p>
             <center>
               <table id="instructionPageTable">
                 <tbody>
@@ -133,7 +166,7 @@ class App extends Component {
                 </tbody>
               </table>
             </center>
-            <p>Please try to keep your eyes fixed on the cross during the test, rather than moving them to look at the <u><span className='targetTypeRef'>target</span>s</u>.</p>
+            <p>Please try to keep your eyes fixed on the cross during the test, rather than moving them to look at the arrows .</p>
             <input className="previousButton" type="button" name="previous" value="Previous" onClick={this.lastInstruction} />
             <input className="nextButton" type="button" name="next" value="Next" onClick={this.nextInstruction} />
           </div>
@@ -142,12 +175,42 @@ class App extends Component {
         case 3:{
           return(
             <div id="instructionPage3" className="instructionsPage">
-            <p>Sometimes, one or more asterisks <img src={Star} className="cue imageintext"style={{ resizeMode: "cover",height: 35,width: 35 }} /> will appear shortly before the <span class='targetTypeRef'>target</span>s.</p>
-            <p>When they are presented, the asterisks always appear exactly one half second before the <span class='targetTypeRef'>target</span>s.</p>
-            <p>If only one asterisk appears, and it is above or below the cross, it also tells you the location in which the <span class='targetTypeRef'>target</span>s will appear.</p>
+            <p>Sometimes, one or more asterisks <img src={Star} className="cue imageintext"style={{ resizeMode: "cover",height: 35,width: 35 }} alt="asterix"/> will appear shortly before the arrows.</p>
+            <p>When they are presented, the asterisks always appear exactly one half second before .</p>
+            <p>If only one asterisk appears, and it is above or below the cross, it also tells you the location in which the arrows will appear.</p>
             <input className="previousButton" type="button" name="previous" value="Previous" onClick={this.lastInstruction} />
             <input className="nextButton" type="button" name="next" value="Next"  onClick={this.nextInstruction} />
           </div>
+          )
+        }
+        case 4:{
+          return(
+            <div id="instructionPage4" className="instructionsPage">
+              <p>As mentioned earlier, you must pay attention to the central arrow, and indicate which way it is pointing by pressing the LEFT or RIGHT arrow keys on the keyboard.</p>
+              <p>This test measures both your reaction time and your accuracy, so it is important to respond as quickly as you can, but without making too many errors.</p>
+              <p>To facilitate quick responding, keep your left and right index fingers over the LEFT and RIGHT arrow keys respectively.</p>
+              <input className="previousButton" type="button" name="previous" value="Previous" onClick={this.lastInstruction} />
+              <input className="nextButton" type="button" name="next" value="Next" onClick={this.nextInstruction} />
+		        </div>
+          )
+        }
+        case 5:{
+          return (
+            <header>
+        <div id="cueType10" className="container-div"style={{display: 'flex', justifyContent : 'center', alignItems: 'center'}}>
+            <img src={Plus} className="cue"  alt="middle plus"  />
+        </div>
+        </header>
+          )
+        }
+        case "cuetype10":{
+          return (
+            <header>
+                <div id="cueType10" className="container-div"style={{display: 'flex', justifyContent : 'center', alignItems: 'center'}}>
+                  <div className="container-arrow "> <img src={ArrowLeft} alt="left Arrow" /><img src={ArrowLeft} alt="left Arrow" /><img src={ArrowLeft} alt="left Arrow" /><img src={ArrowLeft} alt="left Arrow" /><img src={ArrowLeft} alt="left Arrow" /></div>
+                  <img src={Plus} className="cue"  alt="middle plus"  />
+                </div>
+        </header>
           )
         }
       }
