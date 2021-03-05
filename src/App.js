@@ -20,7 +20,11 @@ class App extends Component {
     this.getuserscore = this.getuserscore.bind(this);
     this.nextInstruction = this.nextInstruction.bind(this);
     this.lastInstruction= this.lastInstruction.bind(this);
-    this.startTest =this.startTest(this);
+    this.startTest =this.startTest.bind(this);
+    this.randomizeArray=this.randomizeArray.bind(this);
+   // this.ShowArrows=this.ShowArrows.bind(this);
+    this.nextTrial=this.nextTrial.bind(this);
+    this.timeout=this.timeout.bind(this);
     
 }
   componentDidMount = () => {
@@ -38,36 +42,44 @@ class App extends Component {
       instructionPageTest1 : 1,
       trialCount : 0,
       trialResult : [],
-      currentTrial : 0
+      currentTrial : 0,
+      trialset: [
+       [1,'congruent','UP',0,'L','L'],
+       [1,'congruent','UP',0,'R','R']]
+        // [1,'congruent','DOWN',0,'L','L'],
+        // [1,'congruent','DOWN',0,'R','R'], 
+        // [1,'incongruent','UP',0,'L','R'],
+        // [1,'incongruent','UP',0,'R','L'],
+        // [1,'incongruent','DOWN',0,'L','R'],
+        // [1,'incongruent','DOWN',0,'R','L'],
+        // [2,'congruent','UP',0,'L','L'],
+        // [2,'congruent','UP',0,'R','R'],
+        // [2,'congruent','DOWN',0,'L','L'],
+        // [2,'congruent','DOWN',0,'R','R'], 
+        // [2,'incongruent','UP',0,'L','R'],
+        // [2,'incongruent','UP',0,'R','L'],
+        // [2,'incongruent','DOWN',0,'L','R'],
+        // [2,'incongruent','DOWN',0,'R','L'],
+        // [3,'congruent','UP',0,'L','L'],
+        // [3,'congruent','UP',0,'R','R'],
+        // [3,'congruent','DOWN',0,'L','L'],
+        // [3,'congruent','DOWN',0,'R','R'], 
+        // [3,'incongruent','UP',0,'L','R'],
+        // [3,'incongruent','UP',0,'R','L'],
+        // [3,'incongruent','DOWN',0,'L','R'],
+        // [3,'incongruent','DOWN',0,'R','L'],
+        // [4,'congruent','UP','UP','L','L'],
+        // [4,'congruent','UP','UP','R','R'],
+        // [4,'congruent','DOWN','DOWN','L','L'],
+        // [4,'congruent','DOWN','DOWN','R','R'], 
+        // [4,'incongruent','UP','UP','L','R'],
+        // [4,'incongruent','UP','UP','R','L'],
+        // [4,'incongruent','DOWN','DOWN','L','R'],
+        // [4,'incongruent','DOWN','DOWN','R','L']
+      
     }
-     startTest(blockNumber, inputTrialSet) {
-      //document.onkeydown = earlyEnd;			//Set the early interrupt
-     // currentBlock = blockNumber;				//Keep track of the current block
-		//The current data set uses 32 trials/test 
-      this.setState({trialCount : 32})		//All tests are 32 trials, but check anyway
-      //trialResults = [];						//We'll keep our results in this array
-      //practiceFeedbackUP = document.getElementById('practiceFeedbackUP');
-      //practiceFeedbackDOWN = document.getElementById('practiceFeedbackDOWN');
-     // iPadLeft = 	document.getElementById('iPadLeft');
-    //  iPadRight = document.getElementById('iPadRight');
-      
-      //Setup the test in random order
-      // for (trialIndex=currentTrial; trialIndex<(trialCount+currentTrial); trialIndex++) {
-      //   sourceTrial = randomNumber(0,(inputTrialSet.length-1));		//Get a random trial
-      //   trialResults[trialIndex] = inputTrialSet[sourceTrial];	//Set up the results to contain the trial info
-      //   inputTrialSet.splice(sourceTrial,1);							//Remove the current trial from the pool, so we don't get it again
-      // }
-      
-      //Go through the test in reverse order and setup the view stack so we can quickly flip through them during testing
-      // for (reverseTrialIndex=(trialResults.length-1);reverseTrialIndex>=currentTrial;reverseTrialIndex--) {
-      //   pushView('cueType10');
-      //   pushView(trialResults[reverseTrialIndex][1]+trialResults[reverseTrialIndex][2]+trialResults[reverseTrialIndex][4]);
-      //   pushView('cueType10');
-      //   pushView('cueType'+trialResults[reverseTrialIndex][0]+trialResults[reverseTrialIndex][3]);
-      //   pushView('cueType10');
-      // }
-      // pushView('blankView');
-      // startTrial();							//Start the first trial
+     startTest() {
+      console.log(this.state.trialset[0])
     }
   async createScoresf(dictionary){
     try {
@@ -79,6 +91,9 @@ class App extends Component {
     } catch (error) {
        console.log('user was not created ',error)
      }
+   }
+   nextTrial(){
+     this.setState({trialset: this.state.trialset.slice(1) })
    }
    async getuserscore(){
      try {
@@ -102,8 +117,23 @@ class App extends Component {
    test1MainPage(){
      this.setState({testStarted :false})
    }
+   randomizeArray(){
+    const shuffled = this.state.trialset.sort(() => Math.random() - 0.5)
+    this.setState({trialset : shuffled})
+    console.log(shuffled)
+   }
    nextInstruction(){
-    this.setState({instructionPageTest1 : this.state.instructionPageTest1 +1 })
+     if(this.state.instructionPageTest1==4){
+      this.setState({instructionPageTest1 : this.state.instructionPageTest1 +1 })
+       this.startTest()
+       this.randomizeArray()
+     }else{
+      this.setState({instructionPageTest1 : this.state.instructionPageTest1 +1 })
+     }
+    
+   }
+   timeout(){
+    setTimeout(this.nextTrial,5000)
    }
    lastInstruction(){
      this.setState({instructionPageTest1 : this.state.instructionPageTest1 -1 })
@@ -195,21 +225,38 @@ class App extends Component {
           )
         }
         case 5:{
+          for(var i=0;i<this.state.trialset.length;i++){
+            if(this.state.trialset[i][0]==1){
+                if(this.state.trialset[i][1]=="congruent"){
+                    if(this.state.trialset[i][2]=="UP"){
+                      if(this.state.trialset[i][4]=="R"){
+                        console.log('R')
+                        return (
+                          <div id="cueType10" className="container-div"style={{display: 'flex', justifyContent : 'center', alignItems: 'center'}}>
+                          <div className="container-arrow "> <img src={ArrowRight} alt="right Arrow" /><img src={ArrowRight} alt="right Arrow" /><img src={ArrowRight} alt="right Arrow" /><img src={ArrowRight} alt="right Arrow" /><img src={ArrowRight} alt="right Arrow" /></div>
+                          <img src={Plus} className="cue"  alt="middle plus"  />
+                          {this.timeout()}
+                        </div>
+                        
+                        )
+                      }else{
+                        console.log('L')
+                        return(
+                        <div id="cueType10" className="container-div"style={{display: 'flex', justifyContent : 'center', alignItems: 'center'}}>
+                          <div className="container-arrow "> <img src={ArrowLeft} alt="left Arrow" /><img src={ArrowLeft} alt="left Arrow" /><img src={ArrowLeft} alt="left Arrow" /><img src={ArrowLeft} alt="left Arrow" /><img src={ArrowLeft} alt="left Arrow" /></div>
+                          <img src={Plus} className="cue"  alt="middle plus"  />
+                          {this.timeout()}
+                        </div>
+                        )
+                      }
+                    }
+                }
+              
+            }
+          }
           return (
             <header>
-        <div id="cueType10" className="container-div"style={{display: 'flex', justifyContent : 'center', alignItems: 'center'}}>
-            <img src={Plus} className="cue"  alt="middle plus"  />
-        </div>
-        </header>
-          )
-        }
-        case "cuetype10":{
-          return (
-            <header>
-                <div id="cueType10" className="container-div"style={{display: 'flex', justifyContent : 'center', alignItems: 'center'}}>
-                  <div className="container-arrow "> <img src={ArrowLeft} alt="left Arrow" /><img src={ArrowLeft} alt="left Arrow" /><img src={ArrowLeft} alt="left Arrow" /><img src={ArrowLeft} alt="left Arrow" /><img src={ArrowLeft} alt="left Arrow" /></div>
-                  <img src={Plus} className="cue"  alt="middle plus"  />
-                </div>
+              <div>aici nu</div>  
         </header>
           )
         }
