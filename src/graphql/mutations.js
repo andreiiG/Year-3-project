@@ -55,3 +55,114 @@ export const deleteScores = /* GraphQL */ `
     }
   }
 `;
+export const createScoresTest1 = /* GraphQL */ `
+  mutation CreateScoresTest1(
+    $input: CreateScoresTest1Input!
+    $condition: ModelScoresTest1ConditionInput
+  ) {
+    createScoresTest1(input: $input, condition: $condition) {
+      id
+      username
+      age
+      sleephours
+      gender
+      meanCongruent
+      meanIncongruent
+      meanCongruentN
+      meanIncongruentN
+      meanCongruentC
+      meanIncongruentC
+      meanCongruentTD
+      meanIncongruentTD
+      meanCongruentS
+      meanIncongruentS
+      CongruentAnswer
+      IncongruentAnswer
+      CongruentNAnswer
+      IncongruentNAnswer
+      CongruentCAnswer
+      IncongruentCAnswer
+      CongruentTDAnswer
+      IncongruentTDAnswer
+      CongruentSAnswer
+      IncongruentSAnswer
+      basetype
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateScoresTest1 = /* GraphQL */ `
+  mutation UpdateScoresTest1(
+    $input: UpdateScoresTest1Input!
+    $condition: ModelScoresTest1ConditionInput
+  ) {
+    updateScoresTest1(input: $input, condition: $condition) {
+      id
+      username
+      age
+      sleephours
+      gender
+      meanCongruent
+      meanIncongruent
+      meanCongruentN
+      meanIncongruentN
+      meanCongruentC
+      meanIncongruentC
+      meanCongruentTD
+      meanIncongruentTD
+      meanCongruentS
+      meanIncongruentS
+      CongruentAnswer
+      IncongruentAnswer
+      CongruentNAnswer
+      IncongruentNAnswer
+      CongruentCAnswer
+      IncongruentCAnswer
+      CongruentTDAnswer
+      IncongruentTDAnswer
+      CongruentSAnswer
+      IncongruentSAnswer
+      basetype
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteScoresTest1 = /* GraphQL */ `
+  mutation DeleteScoresTest1(
+    $input: DeleteScoresTest1Input!
+    $condition: ModelScoresTest1ConditionInput
+  ) {
+    deleteScoresTest1(input: $input, condition: $condition) {
+      id
+      username
+      age
+      sleephours
+      gender
+      meanCongruent
+      meanIncongruent
+      meanCongruentN
+      meanIncongruentN
+      meanCongruentC
+      meanIncongruentC
+      meanCongruentTD
+      meanIncongruentTD
+      meanCongruentS
+      meanIncongruentS
+      CongruentAnswer
+      IncongruentAnswer
+      CongruentNAnswer
+      IncongruentNAnswer
+      CongruentCAnswer
+      IncongruentCAnswer
+      CongruentTDAnswer
+      IncongruentTDAnswer
+      CongruentSAnswer
+      IncongruentSAnswer
+      basetype
+      createdAt
+      updatedAt
+    }
+  }
+`;

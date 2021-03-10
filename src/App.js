@@ -4,7 +4,7 @@ import { withAuthenticator } from 'aws-amplify-react'
 import Amplify, { Auth,API,graphqlOperation } from 'aws-amplify';
 import aws_exports from './aws-exports';
 import {listScoress} from './graphql/queries';
-import {createScores} from './graphql/mutations'
+import {createScores,createScoresTest1} from './graphql/mutations'
 import ArrowRight from './images/ArrowRight.jpg'
 import ArrowLeft from './images/ArrowLeft.jpg'
 import Plus from './images/plus.jpg'
@@ -20,19 +20,76 @@ class App extends Component {
     this.getuserscore = this.getuserscore.bind(this);
     this.nextInstruction = this.nextInstruction.bind(this);
     this.lastInstruction= this.lastInstruction.bind(this);
-    this.startTest =this.startTest.bind(this);
     this.randomizeArray=this.randomizeArray.bind(this);
-   // this.ShowArrows=this.ShowArrows.bind(this);
     this.nextTrial=this.nextTrial.bind(this);
     this.timeout=this.timeout.bind(this);
+    this.firstStage=this.firstStage.bind(this);
+    this.showCue=this.showCue.bind(this);
+    this.thirdStage=this.thirdStage.bind(this);
+    this.handleKeyPress=this.handleKeyPress.bind(this);
+    this.timer=0;
+    this.timeouttime=0;
+    this.secondtimer=0;
+    this.trialResult=[];
+    this.trialCount = 0;
+    this.gender= ""
+    this.age=0;
+    this.sleephours=0;
+    this.endtest= this.endtest.bind(this);
+    this.notAnswerTrial=this.notAnswerTrial.bind(this);
+    this.arrowShow=false;
+    this.prefixastionTime=this.prefixastionTime.bind(this);
+    this.waitStage=this.waitStage.bind(this);
+    this.createScoresTest1F=this.createScoresTest1F.bind(this);
+    this.calculateMean=this.calculateMean.bind(this);
+    this.updateAge=this.updateAge.bind(this);
+    this.updateGender=this.updateGender.bind(this);
+    this.updateSleep=this.updateSleep.bind(this);
+    this.trialsetvar= [
+      [1,'congruent','UP','N','L','L'],
+      [1,'congruent','UP','N','R','R'],
+      [1,'congruent','DOWN','N','L','L'],
+      [1,'congruent','DOWN','N','R','R'],
+      [1,'incongruent','UP','N','L','R'],
+      [1,'incongruent','UP','N','R','L'],
+      [1,'incongruent','DOWN','N','L','R'],
+      [1,'incongruent','DOWN','N','R','L'],
+      [2,'congruent','UP','C','L','L'],
+      [2,'congruent','UP',"C",'R','R'],
+      [2,'congruent','DOWN',"C",'L','L'],
+      [2,'congruent','DOWN',"C",'R','R'], 
+      [2,'incongruent','UP',"C",'L','R'],
+      [2,'incongruent','UP',"C",'R','L'],
+      [2,'incongruent','DOWN',"C",'L','R'],
+      [2,'incongruent','DOWN',"C",'R','L'],
+      [3,'congruent','UP',"TD",'L','L'],
+      [3,'congruent','UP',"TD",'R','R'],
+      [3,'congruent','DOWN',"TD",'L','L'],
+      [3,'congruent','DOWN',"TD",'R','R'], 
+      [3,'incongruent','UP',"TD",'L','R'],
+      [3,'incongruent','UP',"TD",'R','L'],
+      [3,'incongruent','DOWN',"TD",'L','R'],
+      [3,'incongruent','DOWN',"TD",'R','L'],
+      [4,'congruent','UP','UP','L','L'],
+      [4,'congruent','UP','UP','R','R'],
+      [4,'congruent','DOWN','DOWN','L','L'],
+      [4,'congruent','DOWN','DOWN','R','R'], 
+      [4,'incongruent','UP','UP','L','R'],
+      [4,'incongruent','UP','UP','R','L'],
+      [4,'incongruent','DOWN','DOWN','L','R'],
+      [4,'incongruent','DOWN','DOWN','R','L']
+    ];
+    
     
 }
+
   componentDidMount = () => {
     this.getuserscore()
     this.setState({height: window.innerHeight + 'px'});
     this.setState({width: window.innerWidth + 'px'});
   }
-    state={
+
+  state={
       testStarted : false,
       userscores :  [],
       username :Auth.user.username,
@@ -40,47 +97,45 @@ class App extends Component {
       width: undefined,
       height: undefined,
       instructionPageTest1 : 1,
-      trialCount : 0,
-      trialResult : [],
       currentTrial : 0,
+      time : 0,
+      timer: 0,
       trialset: [
-       [1,'congruent','UP',0,'L','L'],
-       [1,'congruent','UP',0,'R','R']]
-        // [1,'congruent','DOWN',0,'L','L'],
-        // [1,'congruent','DOWN',0,'R','R'], 
-        // [1,'incongruent','UP',0,'L','R'],
-        // [1,'incongruent','UP',0,'R','L'],
-        // [1,'incongruent','DOWN',0,'L','R'],
-        // [1,'incongruent','DOWN',0,'R','L'],
-        // [2,'congruent','UP',0,'L','L'],
-        // [2,'congruent','UP',0,'R','R'],
-        // [2,'congruent','DOWN',0,'L','L'],
-        // [2,'congruent','DOWN',0,'R','R'], 
-        // [2,'incongruent','UP',0,'L','R'],
-        // [2,'incongruent','UP',0,'R','L'],
-        // [2,'incongruent','DOWN',0,'L','R'],
-        // [2,'incongruent','DOWN',0,'R','L'],
-        // [3,'congruent','UP',0,'L','L'],
-        // [3,'congruent','UP',0,'R','R'],
-        // [3,'congruent','DOWN',0,'L','L'],
-        // [3,'congruent','DOWN',0,'R','R'], 
-        // [3,'incongruent','UP',0,'L','R'],
-        // [3,'incongruent','UP',0,'R','L'],
-        // [3,'incongruent','DOWN',0,'L','R'],
-        // [3,'incongruent','DOWN',0,'R','L'],
-        // [4,'congruent','UP','UP','L','L'],
-        // [4,'congruent','UP','UP','R','R'],
-        // [4,'congruent','DOWN','DOWN','L','L'],
-        // [4,'congruent','DOWN','DOWN','R','R'], 
-        // [4,'incongruent','UP','UP','L','R'],
-        // [4,'incongruent','UP','UP','R','L'],
-        // [4,'incongruent','DOWN','DOWN','L','R'],
-        // [4,'incongruent','DOWN','DOWN','R','L']
-      
+        [1,'congruent','UP','N','L','L'],
+        [1,'congruent','UP','N','R','R'],
+        [1,'congruent','DOWN','N','L','L'],
+        [1,'congruent','DOWN','N','R','R'],
+        [1,'incongruent','UP','N','L','R'],
+        [1,'incongruent','UP','N','R','L'],
+        [1,'incongruent','DOWN','N','L','R'],
+        [1,'incongruent','DOWN','N','R','L'],
+        [2,'congruent','UP','C','L','L'],
+        [2,'congruent','UP',"C",'R','R'],
+        [2,'congruent','DOWN',"C",'L','L'],
+        [2,'congruent','DOWN',"C",'R','R'], 
+        [2,'incongruent','UP',"C",'L','R'],
+        [2,'incongruent','UP',"C",'R','L'],
+        [2,'incongruent','DOWN',"C",'L','R'],
+        [2,'incongruent','DOWN',"C",'R','L'],
+        [3,'congruent','UP',"TD",'L','L'],
+        [3,'congruent','UP',"TD",'R','R'],
+        [3,'congruent','DOWN',"TD",'L','L'],
+        [3,'congruent','DOWN',"TD",'R','R'], 
+        [3,'incongruent','UP',"TD",'L','R'],
+        [3,'incongruent','UP',"TD",'R','L'],
+        [3,'incongruent','DOWN',"TD",'L','R'],
+        [3,'incongruent','DOWN',"TD",'R','L'],
+        [4,'congruent','UP','UP','L','L'],
+        [4,'congruent','UP','UP','R','R'],
+        [4,'congruent','DOWN','DOWN','L','L'],
+        [4,'congruent','DOWN','DOWN','R','R'], 
+        [4,'incongruent','UP','UP','L','R'],
+        [4,'incongruent','UP','UP','R','L'],
+        [4,'incongruent','DOWN','DOWN','L','R'],
+        [4,'incongruent','DOWN','DOWN','R','L']
+      ]
     }
-     startTest() {
-      console.log(this.state.trialset[0])
-    }
+
   async createScoresf(dictionary){
     try {
       //const createdScore= dictionary
@@ -92,9 +147,21 @@ class App extends Component {
        console.log('user was not created ',error)
      }
    }
-   nextTrial(){
-     this.setState({trialset: this.state.trialset.slice(1) })
+   async createScoresTest1F(meanCaux,meanCNaux,meanCCaux,meanCTDaux,meanCSaux,meanIaux,meanINaux,meanICaux,meanITDaux,meanISaux,congAns,congNAns,congCans,congTDans,congSans,incongAns,incongNAns,incongCans,incongTDans,incongSans){
+    try {
+      const createdScoreTest1= { username: this.state.username, age: this.age, sleephours: this.sleephours, gender : this.gender, meanCongruent :meanCaux , meanIncongruent: meanIaux, meanCongruentN:meanCNaux ,meanIncongruentN: meanINaux,  meanCongruentC: meanCCaux,
+       meanIncongruentC: meanICaux,meanCongruentTD: meanCTDaux,meanIncongruentTD :meanITDaux, meanCongruentS:meanCSaux, meanIncongruentS : meanISaux, CongruentAnswer:congAns, IncongruentAnswer:incongAns, CongruentNAnswer:congNAns,
+      IncongruentNAnswer:incongNAns, CongruentCAnswer:congCans, IncongruentCAnswer:incongCans, CongruentTDAnswer:congTDans , IncongruentTDAnswer:incongTDans, CongruentSAnswer:congSans, IncongruentSAnswer:incongSans , basetype : 'score'}
+      // const createdScoreTest1= { username: this.state.username, age: 21, gender : 'M', meanCongruent :meanCaux , meanIncongruent: 0, meanCongruentN:meanCNaux ,meanIncongruentN: 0,  meanCongruentC: 0,
+      //  meanIncongruentC: 0,meanCongruentTD: 0,meanIncongruentTD :0, meanCongruentS:0, meanIncongruentS : 0, CongruentAnswer:congAns, IncongruentAnswer:0, CongruentNAnswer:congNAns,
+      // IncongruentNAnswer:0, CongruentCAnswer:0, IncongruentCAnswer:0, CongruentTDAnswer:0 , IncongruentTDAnswer:0, CongruentSAnswer:0, IncongruentSAnswer:0 , basetype : 'score'}
+      await API.graphql(graphqlOperation(createScoresTest1,{input : createdScoreTest1 }))
+      console.log('score create for '+this.state.username)
+    } catch (error) {
+       console.log('score was not created ',error)
+     }
    }
+
    async getuserscore(){
      try {
         const response = await API.graphql(graphqlOperation(listScoress,{
@@ -108,36 +175,300 @@ class App extends Component {
          this.setState({items: repsponsedata})
          console.log('this user has this many entries',repsponsedata)
      } catch (error) {
-      
      }
    }
+   updateAge(event){
+     this.age=event.target.value;
+   }
+   updateSleep(event){
+    this.sleephours=event.target.value;
+  }
+  updateGender(event){
+    this.gender=event.target.value;
+  }
+
    submitForm(){
-    this.setState({testStarted : true})
+    this.trialCount=this.state.trialset.length
+    this.randomizeArray()
    }
    test1MainPage(){
-     this.setState({testStarted :false})
-   }
+     this.setState({testStarted :false})}
    randomizeArray(){
-    const shuffled = this.state.trialset.sort(() => Math.random() - 0.5)
-    this.setState({trialset : shuffled})
-    console.log(shuffled)
-   }
+      const shuffled = this.state.trialset.sort(() => Math.random() - 0.5)
+      this.setState({trialset : shuffled,testStarted : true})
+    }
    nextInstruction(){
-     if(this.state.instructionPageTest1==4){
-      this.setState({instructionPageTest1 : this.state.instructionPageTest1 +1 })
-       this.startTest()
-       this.randomizeArray()
-     }else{
-      this.setState({instructionPageTest1 : this.state.instructionPageTest1 +1 })
-     }
-    
-   }
-   timeout(){
-    setTimeout(this.nextTrial,5000)
-   }
+      this.setState({instructionPageTest1 : this.state.instructionPageTest1 +1 })}
+
    lastInstruction(){
-     this.setState({instructionPageTest1 : this.state.instructionPageTest1 -1 })
+      this.setState({instructionPageTest1 : this.state.instructionPageTest1 -1 })}
+   firstStage(){
+      var stage1Time = Math.floor(Math.random()*(1600-400+1))+400
+      //change to stage1Time
+      setTimeout(this.showCue,stage1Time);}
+
+   secondStage(){
+      setTimeout(this.nextInstruction,100)}
+   thirdStage(){
+      this.trialCount--;
+      //change to 400
+      setTimeout(this.nextInstruction,400)
    }
+   showCue(){
+    this.setState({instructionPageTest1 : this.state.instructionPageTest1 +1 })
+   }
+   nextTrial(){
+     if(this.trialCount>0){
+       console.log(this.trialCount)
+       document.removeEventListener("keydown",this.handleKeyPress);
+    this.setState({trialset: this.state.trialset.slice(1),instructionPageTest1 : 10  })}
+    else{
+      document.removeEventListener("keydown",this.handleKeyPress);
+    this.endtest()
+    }
+  }
+  notAnswerTrial(){
+    this.secondtimer = new Date().getTime()
+    this.trialResult.push([this.state.trialset[0][1],this.state.trialset[0][2],this.state.trialset[0][3],this.state.trialset[0][4],this.timer,this.secondtimer,"N"])
+    this.nextTrial()
+  }
+  endtest(){
+    this.setState({testStarted : false,trialset: this.trialsetvar,instructionPageTest1:1})
+    console.log(this.trialResult)
+    this.calculateTest1Data();
+  }
+   timeout(){
+    document.addEventListener("keydown", this.handleKeyPress, false)
+    this.arrowShow=true;
+    this.timer = new Date().getTime()
+    //change to 1700
+    this.timeouttime =setTimeout(this.notAnswerTrial,1700)
+    
+}
+  waitStage(){
+    //change to 3000
+      setTimeout(this.prefixastionTime,3000)
+    }
+  prefixastionTime(){
+      this.setState({instructionPageTest1: 5})
+    }
+  handleKeyPress(event){
+    if(this.arrowShow){
+     if(event.keyCode == 39){
+       if(this.state.trialset[0][4]=="R"){
+          this.secondtimer = new Date().getTime()
+          clearTimeout(this.timeouttime);
+          this.trialResult.push([this.state.trialset[0][1],this.state.trialset[0][2],this.state.trialset[0][3],this.state.trialset[0][4],this.timer,this.secondtimer,"C"])
+          this.nextTrial();
+          }else{
+            this.secondtimer = new Date().getTime()
+            clearTimeout(this.timeouttime);
+            this.trialResult.push([this.state.trialset[0][1],this.state.trialset[0][2],this.state.trialset[0][3],this.state.trialset[0][4],this.timer,this.secondtimer,"I"])
+            this.nextTrial();
+          }
+    }else if(event.keyCode==37){
+          if(this.state.trialset[0][4]=="L"){
+            this.secondtimer = new Date().getTime()
+
+            clearTimeout(this.timeouttime);
+            this.trialResult.push([this.state.trialset[0][1],this.state.trialset[0][2],this.state.trialset[0][3],this.state.trialset[0][4],this.timer,this.secondtimer,"C"])
+            this.nextTrial();
+          }else{
+            this.secondtimer = new Date().getTime()
+            clearTimeout(this.timeouttime);
+            this.trialResult.push([this.state.trialset[0][1],this.state.trialset[0][2],this.state.trialset[0][3],this.state.trialset[0][4],this.timer,this.secondtimer,"I"])
+            this.nextTrial();
+          }
+      }else{
+         this.trialResult.push([this.state.trialset[0][1],this.state.trialset[0][2],this.state.trialset[0][3],this.state.trialset[0][4],this.timer,this.secondtimer,"NAN"])
+         
+      }
+       
+    }   
+   }
+   calculateMean(list){
+    var aux=0;
+    for( var x =0; x<list.length;x++){
+       aux=aux+list[x];
+    }
+    aux=aux/list.length;
+    return parseInt(aux)
+  }
+   //calculate means for each category
+   calculateTest1Data(){
+    var meanC =[];
+    var meanCN=[];
+    var meanCC=[];
+    var meanCTD=[];
+    var meanCS=[];
+    var meanI =[];
+    var meanIN=[];
+    var meanIC=[];
+    var meanITD=[];
+    var meanIS=[];
+    var congAns=0;
+    var incongAns=0;
+    var congNAns=0;
+    var congCans=0;
+    var congTDans=0;
+    var congSans=0;
+    var incongNAns=0;
+    var incongCans=0;
+    var incongTDans=0;
+    var incongSans=0;
+     for(var aux = 0;aux<this.trialResult.length;aux++){
+        if(this.trialResult[aux][0]=="incongruent"){
+          var auxtime=this.trialResult[aux][5]-this.trialResult[aux][4]
+          if(auxtime>1700){
+            auxtime=1700
+            meanI.push(auxtime)
+          }else{
+            meanI.push(auxtime)
+          }
+          if(this.trialResult[aux][6]=="C"){
+            incongAns++;
+            switch(this.trialResult[aux][2]){
+              case 'N' :{
+                incongNAns++;
+                break;
+              }
+              case 'TD':{
+                incongTDans++;
+                break;
+              }
+              case 'C':{
+                incongCans++;
+                break;
+              }
+              case 'DOWN':{
+                incongSans++;
+                break;
+              }
+              case 'UP':{
+                incongSans++;
+                break;
+              }
+            }
+            
+          }
+          switch(this.trialResult[aux][2]){
+            case 'N' :{
+              meanIN.push(auxtime)
+              incongNAns++;
+              break;
+            }
+            case 'TD':{
+              meanITD.push(auxtime)
+              incongTDans++;
+              break;
+            }
+            case 'C':{
+              meanIC.push(auxtime)
+              incongCans++;
+              break;
+            }
+            case 'DOWN':{
+              meanIS.push(auxtime)
+              incongSans++;
+              break;
+            }
+            case 'UP':{
+              meanIS.push(auxtime)
+              incongSans++;
+              break;
+            }
+          }
+
+            
+        }else if(this.trialResult[aux][0]=="congruent"){
+          var auxtime=this.trialResult[aux][5]-this.trialResult[aux][4]
+          if(auxtime>1700){
+            auxtime=1700
+            meanC.push(auxtime)
+          }else{
+            meanC.push(auxtime)
+          }
+          if(this.trialResult[aux][6]=="C"){
+            congAns++;
+            switch(this.trialResult[aux][2]){
+              case 'N' :{
+                congNAns++;
+                break;
+              }
+              case 'TD':{
+                congTDans++;
+                break;
+              }
+              case 'C':{
+                congCans++;
+                break;
+              }
+              case 'DOWN':{
+                meanCS.push(auxtime)
+                congSans++;
+                break;
+              }
+              case 'UP':{
+                meanCS.push(auxtime)
+                congSans++;
+                break;
+              }
+            }
+          }
+          switch(this.trialResult[aux][2]){
+            case 'N' :{
+              meanCN.push(auxtime)
+              congNAns++;
+              break;
+            }
+            case 'TD':{
+              meanCTD.push(auxtime)
+              congTDans++;
+              break;
+            }
+            case 'C':{
+              meanCC.push(auxtime)
+              congCans++;
+              break;
+            }
+            case 'DOWN':{
+              meanCS.push(auxtime)
+              congSans++;
+              break;
+            }
+            case 'UP':{
+              meanCS.push(auxtime)
+              congSans++;
+              break;
+            }
+          }
+
+        }
+     } 
+     var meanCaux =0;
+     var meanCNaux=0;
+     var meanCCaux=0;
+     var meanCTDaux=0;
+     var meanCSaux=0;
+     var meanIaux =0;
+     var meanINaux=0;
+     var meanICaux=0;
+     var meanITDaux=0;
+     var meanISaux=0;
+     //calculate mean for all lists and call api to write in to database for test 1
+    meanCaux=this.calculateMean(meanC)
+    meanCNaux=this.calculateMean(meanCN)
+    meanCCaux=this.calculateMean(meanCC)
+    meanCTDaux=this.calculateMean(meanCTD)
+    meanCSaux=this.calculateMean(meanCS)
+    meanIaux=this.calculateMean(meanI)
+    meanINaux=this.calculateMean(meanIN)
+    meanICaux=this.calculateMean(meanIC)
+    meanITDaux=this.calculateMean(meanITD)
+    meanISaux=this.calculateMean(meanIS)
+    this.createScoresTest1F(meanCaux,meanCNaux,meanCCaux,meanCTDaux,meanCSaux,meanIaux,meanINaux,meanICaux,meanITDaux,meanISaux,congAns,congNAns,congCans,congTDans,congSans,incongAns,incongNAns,incongCans,incongTDans,incongSans)
+   }
+
   render() {
     if(this.state.display){
       return(
@@ -224,40 +555,173 @@ class App extends Component {
 		        </div>
           )
         }
+        //first stage
         case 5:{
+          return(
+            <div id="cueType10" className="container-div"style={{display: 'flex', justifyContent : 'center', alignItems: 'center'}}>
+                          <img src={Plus} className="plus"  alt="middle plus"  />
+                          {this.firstStage()}
+                        </div>
+          )
+        }
+        //second stage show cue
+        case 6:{
+                  for(var z=0;z<this.state.trialset.length;z++){
+                    if(this.state.trialset[z][3]=="N"){
+                      return(
+                              <div id="cueType10" className="container-div"style={{display: 'flex', justifyContent : 'center', alignItems: 'center'}}>
+                                  <img src={Plus} className="plus"  alt="middle plus"  />
+                                  {this.secondStage()}
+                              </div>
+                      )
+                    }else if(this.state.trialset[z][3]=="C"){
+                      return(
+                          <div id="cueType10" className="container-div"style={{display: 'flex', justifyContent : 'center', alignItems: 'center'}}>
+                              <img src={Star} className="plus"  alt="middle plus"  />
+                              {this.secondStage()}
+                          </div>
+                          )             
+                    }else if(this.state.trialset[z][3]=="TD"){
+                      return(
+                        <div id="cueType10" className="container-div"style={{display: 'flex', justifyContent : 'center', alignItems: 'center'}}>
+                            <img src ={Star} className="container-cue-top" alt=" Star top"></img>
+                            <img src={Plus} className="plus"  alt="middle plus"  />
+                            <img src ={Star} className="container-cue-down" alt=" Star down"></img>
+                            {this.secondStage()}
+                        </div>
+                        ) 
+                    }else if(this.state.trialset[z][3]=="UP"){
+                      return(
+                      <div id="cueType10" className="container-div"style={{display: 'flex', justifyContent : 'center', alignItems: 'center'}}>
+                            <img src ={Star} className="container-cue-top" alt=" Star top"></img>
+                            <img src={Plus} className="plus"  alt="middle plus"  />
+                            {this.secondStage()}
+                        </div>
+                        ) 
+                    }else if(this.state.trialset[z][3]=="DOWN"){
+                      return(
+                      <div id="cueType10" className="container-div"style={{display: 'flex', justifyContent : 'center', alignItems: 'center'}}>
+                            <img src={Plus} className="plus"  alt="middle plus"  />
+                            <img src ={Star} className="container-cue-down" alt=" Star down"></img>
+                            {this.secondStage()}
+                        </div>
+                        ) 
+              }
+            }
+          }
+              //third stage remove cue 
+        case 7:{
+          return(
+                  <div id="cueType10" className="container-div"style={{display: 'flex', justifyContent : 'center', alignItems: 'center'}}>
+                        <img src={Plus} className="plus"  alt="middle plus"  />
+                        {this.thirdStage()}
+                </div>
+          )
+              }
+              // forth stage show arrows
+        case 8:{
           for(var i=0;i<this.state.trialset.length;i++){
-            if(this.state.trialset[i][0]==1){
                 if(this.state.trialset[i][1]=="congruent"){
                     if(this.state.trialset[i][2]=="UP"){
                       if(this.state.trialset[i][4]=="R"){
-                        console.log('R')
                         return (
                           <div id="cueType10" className="container-div"style={{display: 'flex', justifyContent : 'center', alignItems: 'center'}}>
-                          <div className="container-arrow "> <img src={ArrowRight} alt="right Arrow" /><img src={ArrowRight} alt="right Arrow" /><img src={ArrowRight} alt="right Arrow" /><img src={ArrowRight} alt="right Arrow" /><img src={ArrowRight} alt="right Arrow" /></div>
-                          <img src={Plus} className="cue"  alt="middle plus"  />
+                          <div className="container-arrow-top "> <img src={ArrowRight} alt="right Arrow" /><img src={ArrowRight} alt="right Arrow" /><img src={ArrowRight} alt="right Arrow" /><img src={ArrowRight} alt="right Arrow" /><img src={ArrowRight} alt="right Arrow" /></div>
+                          <img src={Plus} className="plus"  alt="middle plus"  />
                           {this.timeout()}
                         </div>
                         
                         )
                       }else{
-                        console.log('L')
                         return(
                         <div id="cueType10" className="container-div"style={{display: 'flex', justifyContent : 'center', alignItems: 'center'}}>
-                          <div className="container-arrow "> <img src={ArrowLeft} alt="left Arrow" /><img src={ArrowLeft} alt="left Arrow" /><img src={ArrowLeft} alt="left Arrow" /><img src={ArrowLeft} alt="left Arrow" /><img src={ArrowLeft} alt="left Arrow" /></div>
-                          <img src={Plus} className="cue"  alt="middle plus"  />
+                          <div className="container-arrow-top "> <img src={ArrowLeft} alt="left Arrow" /><img src={ArrowLeft} alt="left Arrow" /><img src={ArrowLeft} alt="left Arrow" /><img src={ArrowLeft} alt="left Arrow" /><img src={ArrowLeft} alt="left Arrow" /></div>
+                          <img src={Plus} className="plus"  alt="middle plus" />
+                          
+                          {this.timeout()}
+                        </div>
+                        )
+                      }
+                    }else if(this.state.trialset[i][2]){
+                      if(this.state.trialset[i][4]=="R"){
+                        return (
+                          <div id="cueType10" className="container-div"style={{display: 'flex', justifyContent : 'center', alignItems: 'center'}}>
+                          <img src={Plus} className="plus"  alt="middle plus"  />
+                          <div className="container-arrow-bottom "> <img src={ArrowRight} alt="right Arrow" /><img src={ArrowRight} alt="right Arrow" /><img src={ArrowRight} alt="right Arrow" /><img src={ArrowRight} alt="right Arrow" /><img src={ArrowRight} alt="right Arrow" /></div>
+                          
+                          {this.timeout()}
+                        </div>
+                        
+                        )
+                      }else{
+                        return(
+                        <div id="cueType10" className="container-div"style={{display: 'flex', justifyContent : 'center', alignItems: 'center'}}>
+                          <img src={Plus} className="plus"  alt="middle plus"  />
+                          <div className="container-arrow-bottom "> <img src={ArrowLeft} alt="left Arrow" /><img src={ArrowLeft} alt="left Arrow" /><img src={ArrowLeft} alt="left Arrow" /><img src={ArrowLeft} alt="left Arrow" /><img src={ArrowLeft} alt="left Arrow" /></div>
+                          
                           {this.timeout()}
                         </div>
                         )
                       }
                     }
+                }else if(this.state.trialset[i][1]="incongruent"){    
+                  if(this.state.trialset[i][2]=="UP"){
+                    if(this.state.trialset[i][4]=="L"){
+                      return (
+                        <div id="cueType10" className="container-div"style={{display: 'flex', justifyContent : 'center', alignItems: 'center'}}>
+                        <div className="container-arrow-top "> <img src={ArrowRight} alt="right Arrow" /><img src={ArrowRight} alt="right Arrow" /><img src={ArrowLeft} alt="left Arrow" /><img src={ArrowRight} alt="right Arrow" /><img src={ArrowRight} alt="right Arrow" /></div>
+                        <img src={Plus} className="plus"  alt="middle plus"/>
+                        {this.timeout()}
+                      </div>
+                      
+                      )
+                    }else{
+                      return(
+                      <div id="cueType10" className="container-div"style={{display: 'flex', justifyContent : 'center', alignItems: 'center'}}>
+                        <div className="container-arrow-top"> <img src={ArrowLeft} alt="left Arrow" /><img src={ArrowLeft} alt="left Arrow" /><img src={ArrowRight} alt="right Arrow" /><img src={ArrowLeft} alt="left Arrow" /><img src={ArrowLeft} alt="left Arrow" /></div>
+                        <img src={Plus} className="plus"  alt="middle plus"  />
+                        {this.timeout()}
+                      </div>
+                      )
+                    }
+                }else if(this.state.trialset[i][2]){
+                  if(this.state.trialset[i][4]=="L"){
+                    return (
+                      <div id="cueType10" className="container-div"style={{display: 'flex', justifyContent : 'center', alignItems: 'center'}}>
+                      <img src={Plus} className="plus"  alt="middle plus"  />
+                      <div className="container-arrow-bottom "> <img src={ArrowRight} alt="right Arrow" /><img src={ArrowRight} alt="right Arrow" /><img src={ArrowLeft} alt="left Arrow" /><img src={ArrowRight} alt="right Arrow" /><img src={ArrowRight} alt="right Arrow" /></div>
+                      
+                      {this.timeout()}
+                    </div>
+                    
+                    )
+                  }else{                    return(
+                    <div id="cueType10" className="container-div"style={{display: 'flex', justifyContent : 'center', alignItems: 'center'}}>
+                      <img src={Plus} className="plus"  alt="middle plus"  />
+                      <div className="container-arrow-bottom"> <img src={ArrowLeft} alt="left Arrow" /><img src={ArrowLeft} alt="left Arrow" /><img src={ArrowRight} alt="right Arrow" /><img src={ArrowLeft} alt="left Arrow" /><img src={ArrowLeft} alt="left Arrow" /></div>
+                      
+                      {this.timeout()}
+                    </div>
+                    )
+                  }
+                }
+
                 }
               
-            }
+            
           }
           return (
             <header>
               <div>aici nu</div>  
         </header>
+          )
+        }
+        case 10:{
+          return(
+            <div id="cueType10" className="container-div"style={{display: 'flex', justifyContent : 'center', alignItems: 'center'}}>
+                          <img src={Plus} className="plus"  alt="middle plus"  />
+                          {this.waitStage()}
+                        </div>
           )
         }
       }
@@ -266,7 +730,14 @@ class App extends Component {
       return (
         <div className="App">
           <header className="App-header">
-              <button onClick={this.submitForm}>Start First Test</button>
+
+            <label>Age: <input type="text" name="age" onChange={this.updateAge}/></label>
+            <label>Gender: <input type="text" name ="gender" onChange={this.updateGender}></input></label>
+            <label>Sleep Hours: <input type="text" name ="sleepH" onChange={this.updateSleep}></input></label>
+            <br></br>
+            <button onClick={this.submitForm}>Start First Test</button>
+            
+              <button> Start Second Test </button>
           </header>
               
         </div>
@@ -274,8 +745,6 @@ class App extends Component {
     }
   }
 }
-class firstGame extends Component{
 
-}
 
 export default withAuthenticator(App, true);

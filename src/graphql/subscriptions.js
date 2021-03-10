@@ -46,3 +46,105 @@ export const onDeleteScores = /* GraphQL */ `
     }
   }
 `;
+export const onCreateScoresTest1 = /* GraphQL */ `
+  subscription OnCreateScoresTest1 {
+    onCreateScoresTest1 {
+      id
+      username
+      age
+      sleephours
+      gender
+      meanCongruent
+      meanIncongruent
+      meanCongruentN
+      meanIncongruentN
+      meanCongruentC
+      meanIncongruentC
+      meanCongruentTD
+      meanIncongruentTD
+      meanCongruentS
+      meanIncongruentS
+      CongruentAnswer
+      IncongruentAnswer
+      CongruentNAnswer
+      IncongruentNAnswer
+      CongruentCAnswer
+      IncongruentCAnswer
+      CongruentTDAnswer
+      IncongruentTDAnswer
+      CongruentSAnswer
+      IncongruentSAnswer
+      basetype
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateScoresTest1 = /* GraphQL */ `
+  subscription OnUpdateScoresTest1 {
+    onUpdateScoresTest1 {
+      id
+      username
+      age
+      sleephours
+      gender
+      meanCongruent
+      meanIncongruent
+      meanCongruentN
+      meanIncongruentN
+      meanCongruentC
+      meanIncongruentC
+      meanCongruentTD
+      meanIncongruentTD
+      meanCongruentS
+      meanIncongruentS
+      CongruentAnswer
+      IncongruentAnswer
+      CongruentNAnswer
+      IncongruentNAnswer
+      CongruentCAnswer
+      IncongruentCAnswer
+      CongruentTDAnswer
+      IncongruentTDAnswer
+      CongruentSAnswer
+      IncongruentSAnswer
+      basetype
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteScoresTest1 = /* GraphQL */ `
+  subscription OnDeleteScoresTest1 {
+    onDeleteScoresTest1 {
+      id
+      username
+      age
+      sleephours
+      gender
+      meanCongruent
+      meanIncongruent
+      meanCongruentN
+      meanIncongruentN
+      meanCongruentC
+      meanIncongruentC
+      meanCongruentTD
+      meanIncongruentTD
+      meanCongruentS
+      meanIncongruentS
+      CongruentAnswer
+      IncongruentAnswer
+      CongruentNAnswer
+      IncongruentNAnswer
+      CongruentCAnswer
+      IncongruentCAnswer
+      CongruentTDAnswer
+      IncongruentTDAnswer
+      CongruentSAnswer
+      IncongruentSAnswer
+      basetype
+      createdAt
+      updatedAt
+    }
+  }
+`;

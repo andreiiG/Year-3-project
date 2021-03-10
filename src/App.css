@@ -18,7 +18,25 @@
   flex-wrap: wrap;
   flex-direction: column;
   }
-  .container-arrow{
+  .container-arrow-bottom{
     flex-direction: row;
+    position: relative;
+    top: 100px;
   }
-  
+  .container-arrow-top{
+    flex-direction: row;
+    position: relative;
+    bottom: 100px;
+  }
+  .plus{
+    position :absolute;
+    flex-direction: column;
+  }
+  .container-cue-top{
+    position: relative;
+    bottom: 100px;
+  }
+  .container-cue-down{
+    position: relative;
+    top: 100px;
+  }

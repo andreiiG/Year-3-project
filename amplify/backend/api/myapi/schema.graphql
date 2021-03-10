@@ -9,3 +9,34 @@ type Scores @model
   sleephours: Int!
   basetype: String!
 }
+type ScoresTest1 @model
+@key (name: "usernameScoreTest1", fields: ["basetype","username"], queryField:"ScoresByUsernameTest1")
+{
+  id : ID!
+  username : String!
+  age : Int!
+  sleephours : Int!
+  gender: String!
+  meanCongruent : Int!
+  meanIncongruent : Int!
+  meanCongruentN : Int!
+  meanIncongruentN : Int!
+  meanCongruentC : Int!
+  meanIncongruentC : Int!
+  meanCongruentTD : Int!
+  meanIncongruentTD : Int!
+  meanCongruentS : Int!
+  meanIncongruentS : Int!
+  CongruentAnswer : Int!
+  IncongruentAnswer : Int!
+  CongruentNAnswer : Int!
+  IncongruentNAnswer : Int!
+  CongruentCAnswer : Int!
+  IncongruentCAnswer : Int!
+  CongruentTDAnswer : Int!
+  IncongruentTDAnswer : Int!
+  CongruentSAnswer : Int!
+  IncongruentSAnswer : Int!
+  basetype : String!
+
+}
