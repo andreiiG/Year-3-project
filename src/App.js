@@ -744,13 +744,16 @@ class App extends Component {
         <div className="App">
           <header className="App-header">
             
-             <input type="text" name="age" placeholder="Age"  onChange={this.updateAge}/>
-            <input type="text" name ="gender" placeholder="Gender" onChange={this.updateGender}></input>
-             <input type="text" name ="sleepH" placeholder="Sleep Hours" onChange={this.updateSleep}></input>
+            <label> Enter your age : <input type="text" className="inputFields" name="age" placeholder="Age"  onChange={this.updateAge}/></label>
+            <br></br>
+            <label>Enter your gender : <input type="text" className="inputFields" name ="gender" placeholder="Gender" onChange={this.updateGender}></input></label>
+            <br></br>
+            <label>Enter hours slept : <input type="text" className="inputFields" name ="sleepH" placeholder="Sleep Hours" onChange={this.updateSleep}></input></label>
+            
+            <br></br>
             <br></br>
             <button class ="myButton" onClick={this.submitForm}>Start First Test</button>
-            
-              <button class ="myButton"> Start Second Test </button>
+            <button class ="myButton"> Start Second Test </button>
           </header>
               
         </div>
