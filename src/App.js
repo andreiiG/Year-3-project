@@ -45,6 +45,7 @@ class App extends Component {
     this.updateAge=this.updateAge.bind(this);
     this.updateGender=this.updateGender.bind(this);
     this.updateSleep=this.updateSleep.bind(this);
+    this.endtestEsc=this.endtestEsc.bind(this);
     this.trialsetvar= [
       [1,'congruent','UP','N','L','L'],
       [1,'congruent','UP','N','R','R'],
@@ -237,6 +238,10 @@ class App extends Component {
     console.log(this.trialResult)
     this.calculateTest1Data();
   }
+  endtestEsc(){
+    this.setState({testStarted : false,trialset: this.trialsetvar,instructionPageTest1:1})
+    console.log(this.trialResult)
+  }
    timeout(){
     document.addEventListener("keydown", this.handleKeyPress, false)
     this.arrowShow=true;
@@ -252,6 +257,7 @@ class App extends Component {
   prefixastionTime(){
       this.setState({instructionPageTest1: 5})
     }
+    //pune pentru luca sa iesi din test cand apesi esc 
   handleKeyPress(event){
     if(this.arrowShow){
      if(event.keyCode == 39){
@@ -279,8 +285,13 @@ class App extends Component {
             this.trialResult.push([this.state.trialset[0][1],this.state.trialset[0][2],this.state.trialset[0][3],this.state.trialset[0][4],this.timer,this.secondtimer,"I"])
             this.nextTrial();
           }
-      }else{
+      }else if(event.keyCode==27){
+        clearTimeout(this.timeouttime);
+        this.endtestEsc()
+      }
+      else{
          this.trialResult.push([this.state.trialset[0][1],this.state.trialset[0][2],this.state.trialset[0][3],this.state.trialset[0][4],this.timer,this.secondtimer,"NAN"])
+         clearTimeout(this.timeouttime);
          
       }
        
@@ -480,6 +491,7 @@ class App extends Component {
               return(
                   <div> 
                     <div id="instructionPage1" className="instructionsPage"  >
+                      <p>It is better to use fullscreen, press F11 for entering full screen</p>
                       <p>This test measures some aspects of attention, and takes about 10 minutes to complete.</p>
                       <p>You will see 5 arrows on the computer screen</p>
                       <center>
@@ -487,8 +499,8 @@ class App extends Component {
                       </center>
                       <p>You must pay attention to the <b><i>CENTRAL</i></b> arrows, and indicate which way it is pointing by pressing the LEFT or RIGHT arrow keys on the keyboard.
                       </p>
-                      <input className="previousButton" type="button" name="previous" value="Previous" onClick={this.test1MainPage} />
-                      <input className="nextButton" type="button" name="next" value="Next" onClick={this.nextInstruction}/>
+                      <button className="previousButton" onClick={this.test1MainPage} >Previous</button>
+                      <button className="nextButton" onClick={this.nextInstruction} >Next</button>
                   </div>
                 </div>
               )
@@ -528,8 +540,9 @@ class App extends Component {
               </table>
             </center>
             <p>Please try to keep your eyes fixed on the cross during the test, rather than moving them to look at the arrows .</p>
-            <input className="previousButton" type="button" name="previous" value="Previous" onClick={this.lastInstruction} />
-            <input className="nextButton" type="button" name="next" value="Next" onClick={this.nextInstruction} />
+            <button className="previousButton" onClick={this.lastInstruction} >Previous</button>
+            <button className="nextButton" onClick={this.nextInstruction} >Next</button>
+
           </div>
           )
         }
@@ -539,8 +552,8 @@ class App extends Component {
             <p>Sometimes, one or more asterisks <img src={Star} className="cue imageintext"style={{ resizeMode: "cover",height: 35,width: 35 }} alt="asterix"/> will appear shortly before the arrows.</p>
             <p>When they are presented, the asterisks always appear exactly one half second before .</p>
             <p>If only one asterisk appears, and it is above or below the cross, it also tells you the location in which the arrows will appear.</p>
-            <input className="previousButton" type="button" name="previous" value="Previous" onClick={this.lastInstruction} />
-            <input className="nextButton" type="button" name="next" value="Next"  onClick={this.nextInstruction} />
+            <button className="previousButton" onClick={this.lastInstruction} >Previous</button>
+            <button className="nextButton" onClick={this.nextInstruction} >Next</button>
           </div>
           )
         }
@@ -550,8 +563,8 @@ class App extends Component {
               <p>As mentioned earlier, you must pay attention to the central arrow, and indicate which way it is pointing by pressing the LEFT or RIGHT arrow keys on the keyboard.</p>
               <p>This test measures both your reaction time and your accuracy, so it is important to respond as quickly as you can, but without making too many errors.</p>
               <p>To facilitate quick responding, keep your left and right index fingers over the LEFT and RIGHT arrow keys respectively.</p>
-              <input className="previousButton" type="button" name="previous" value="Previous" onClick={this.lastInstruction} />
-              <input className="nextButton" type="button" name="next" value="Next" onClick={this.nextInstruction} />
+              <button className="previousButton" onClick={this.lastInstruction} >Previous</button>
+              <button className="nextButton" onClick={this.nextInstruction} >Start Test</button>
 		        </div>
           )
         }
