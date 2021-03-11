@@ -730,14 +730,14 @@ class App extends Component {
       return (
         <div className="App">
           <header className="App-header">
-
-            <label>Age: <input type="text" name="age" onChange={this.updateAge}/></label>
-            <label>Gender: <input type="text" name ="gender" onChange={this.updateGender}></input></label>
-            <label>Sleep Hours: <input type="text" name ="sleepH" onChange={this.updateSleep}></input></label>
-            <br></br>
-            <button onClick={this.submitForm}>Start First Test</button>
             
-              <button> Start Second Test </button>
+             <input type="text" name="age" placeholder="Age"  onChange={this.updateAge}/>
+            <input type="text" name ="gender" placeholder="Gender" onChange={this.updateGender}></input>
+             <input type="text" name ="sleepH" placeholder="Sleep Hours" onChange={this.updateSleep}></input>
+            <br></br>
+            <button class ="myButton" onClick={this.submitForm}>Start First Test</button>
+            
+              <button class ="myButton"> Start Second Test </button>
           </header>
               
         </div>
