@@ -53,6 +53,7 @@ export const onCreateScoresTest1 = /* GraphQL */ `
       username
       age
       sleephours
+      sleepScore
       gender
       meanCongruent
       meanIncongruent
@@ -87,6 +88,7 @@ export const onUpdateScoresTest1 = /* GraphQL */ `
       username
       age
       sleephours
+      sleepScore
       gender
       meanCongruent
       meanIncongruent
@@ -121,6 +123,7 @@ export const onDeleteScoresTest1 = /* GraphQL */ `
       username
       age
       sleephours
+      sleepScore
       gender
       meanCongruent
       meanIncongruent
@@ -142,6 +145,78 @@ export const onDeleteScoresTest1 = /* GraphQL */ `
       IncongruentTDAnswer
       CongruentSAnswer
       IncongruentSAnswer
+      basetype
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateScoreTest2 = /* GraphQL */ `
+  subscription OnCreateScoreTest2 {
+    onCreateScoreTest2 {
+      id
+      username
+      age
+      sleephours
+      sleepScore
+      gender
+      correctAnswer
+      wrongAnswer
+      bigjumpNoAns
+      smallJumpNoAns
+      bigJumpRightAns
+      smallJumpRightAns
+      bigJumpWrong
+      smallJumpWrong
+      trials
+      basetype
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateScoreTest2 = /* GraphQL */ `
+  subscription OnUpdateScoreTest2 {
+    onUpdateScoreTest2 {
+      id
+      username
+      age
+      sleephours
+      sleepScore
+      gender
+      correctAnswer
+      wrongAnswer
+      bigjumpNoAns
+      smallJumpNoAns
+      bigJumpRightAns
+      smallJumpRightAns
+      bigJumpWrong
+      smallJumpWrong
+      trials
+      basetype
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteScoreTest2 = /* GraphQL */ `
+  subscription OnDeleteScoreTest2 {
+    onDeleteScoreTest2 {
+      id
+      username
+      age
+      sleephours
+      sleepScore
+      gender
+      correctAnswer
+      wrongAnswer
+      bigjumpNoAns
+      smallJumpNoAns
+      bigJumpRightAns
+      smallJumpRightAns
+      bigJumpWrong
+      smallJumpWrong
+      trials
       basetype
       createdAt
       updatedAt

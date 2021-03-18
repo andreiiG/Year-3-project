@@ -65,6 +65,7 @@ export const createScoresTest1 = /* GraphQL */ `
       username
       age
       sleephours
+      sleepScore
       gender
       meanCongruent
       meanIncongruent
@@ -102,6 +103,7 @@ export const updateScoresTest1 = /* GraphQL */ `
       username
       age
       sleephours
+      sleepScore
       gender
       meanCongruent
       meanIncongruent
@@ -139,6 +141,7 @@ export const deleteScoresTest1 = /* GraphQL */ `
       username
       age
       sleephours
+      sleepScore
       gender
       meanCongruent
       meanIncongruent
@@ -160,6 +163,87 @@ export const deleteScoresTest1 = /* GraphQL */ `
       IncongruentTDAnswer
       CongruentSAnswer
       IncongruentSAnswer
+      basetype
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createScoreTest2 = /* GraphQL */ `
+  mutation CreateScoreTest2(
+    $input: CreateScoreTest2Input!
+    $condition: ModelScoreTest2ConditionInput
+  ) {
+    createScoreTest2(input: $input, condition: $condition) {
+      id
+      username
+      age
+      sleephours
+      sleepScore
+      gender
+      correctAnswer
+      wrongAnswer
+      bigjumpNoAns
+      smallJumpNoAns
+      bigJumpRightAns
+      smallJumpRightAns
+      bigJumpWrong
+      smallJumpWrong
+      trials
+      basetype
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateScoreTest2 = /* GraphQL */ `
+  mutation UpdateScoreTest2(
+    $input: UpdateScoreTest2Input!
+    $condition: ModelScoreTest2ConditionInput
+  ) {
+    updateScoreTest2(input: $input, condition: $condition) {
+      id
+      username
+      age
+      sleephours
+      sleepScore
+      gender
+      correctAnswer
+      wrongAnswer
+      bigjumpNoAns
+      smallJumpNoAns
+      bigJumpRightAns
+      smallJumpRightAns
+      bigJumpWrong
+      smallJumpWrong
+      trials
+      basetype
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteScoreTest2 = /* GraphQL */ `
+  mutation DeleteScoreTest2(
+    $input: DeleteScoreTest2Input!
+    $condition: ModelScoreTest2ConditionInput
+  ) {
+    deleteScoreTest2(input: $input, condition: $condition) {
+      id
+      username
+      age
+      sleephours
+      sleepScore
+      gender
+      correctAnswer
+      wrongAnswer
+      bigjumpNoAns
+      smallJumpNoAns
+      bigJumpRightAns
+      smallJumpRightAns
+      bigJumpWrong
+      smallJumpWrong
+      trials
       basetype
       createdAt
       updatedAt

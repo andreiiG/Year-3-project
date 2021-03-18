@@ -45,6 +45,7 @@ export const getScoresTest1 = /* GraphQL */ `
       username
       age
       sleephours
+      sleepScore
       gender
       meanCongruent
       meanIncongruent
@@ -84,6 +85,7 @@ export const listScoresTest1s = /* GraphQL */ `
         username
         age
         sleephours
+        sleepScore
         gender
         meanCongruent
         meanIncongruent
@@ -105,6 +107,61 @@ export const listScoresTest1s = /* GraphQL */ `
         IncongruentTDAnswer
         CongruentSAnswer
         IncongruentSAnswer
+        basetype
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getScoreTest2 = /* GraphQL */ `
+  query GetScoreTest2($id: ID!) {
+    getScoreTest2(id: $id) {
+      id
+      username
+      age
+      sleephours
+      sleepScore
+      gender
+      correctAnswer
+      wrongAnswer
+      bigjumpNoAns
+      smallJumpNoAns
+      bigJumpRightAns
+      smallJumpRightAns
+      bigJumpWrong
+      smallJumpWrong
+      trials
+      basetype
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listScoreTest2s = /* GraphQL */ `
+  query ListScoreTest2s(
+    $filter: ModelScoreTest2FilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listScoreTest2s(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        username
+        age
+        sleephours
+        sleepScore
+        gender
+        correctAnswer
+        wrongAnswer
+        bigjumpNoAns
+        smallJumpNoAns
+        bigJumpRightAns
+        smallJumpRightAns
+        bigJumpWrong
+        smallJumpWrong
+        trials
         basetype
         createdAt
         updatedAt
@@ -167,6 +224,7 @@ export const scoresByUsernameTest1 = /* GraphQL */ `
         username
         age
         sleephours
+        sleepScore
         gender
         meanCongruent
         meanIncongruent
@@ -188,6 +246,47 @@ export const scoresByUsernameTest1 = /* GraphQL */ `
         IncongruentTDAnswer
         CongruentSAnswer
         IncongruentSAnswer
+        basetype
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const scoresByUsernameTest2 = /* GraphQL */ `
+  query ScoresByUsernameTest2(
+    $basetype: String
+    $username: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelScoreTest2FilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    ScoresByUsernameTest2(
+      basetype: $basetype
+      username: $username
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        username
+        age
+        sleephours
+        sleepScore
+        gender
+        correctAnswer
+        wrongAnswer
+        bigjumpNoAns
+        smallJumpNoAns
+        bigJumpRightAns
+        smallJumpRightAns
+        bigJumpWrong
+        smallJumpWrong
+        trials
         basetype
         createdAt
         updatedAt
