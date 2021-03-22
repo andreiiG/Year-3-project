@@ -752,7 +752,7 @@ startDemoTest2(){
             return(
               <div id="instructionPage3" className="instructionsPage">
               <p>Sometimes, one or more asterisks <img src={Star} className="cue imageintext"style={{ resizeMode: "cover",height: 35,width: 35 }} alt="asterix"/> will appear shortly before the arrows.</p>
-              <p>When they are presented, the asterisks always appear exactly one half second before .</p>
+              <p>When they are presented, the asterisks always appear exactly  400ms second before the arrows .</p>
               <p>If only one asterisk appears, and it is above or below the cross, it also tells you the location in which the arrows will appear.</p>
               <button className="myButton" onClick={this.lastInstruction} >Previous</button>
               <button className="myButton" onClick={this.nextInstruction} >Next</button>
