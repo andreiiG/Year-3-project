@@ -532,6 +532,9 @@ class App extends Component {
     meanISaux=this.calculateMean(meanIS)
     this.createScoresTest1F(meanCaux,meanCNaux,meanCCaux,meanCTDaux,meanCSaux,meanIaux,meanINaux,meanICaux,meanITDaux,meanISaux,congAns,congNAns,congCans,congTDans,congSans,incongAns,incongNAns,incongCans,incongTDans,incongSans)
    }
+
+
+
    //test2 functions
    startTest2(){
      this.setState({test2Started : true})
@@ -615,8 +618,11 @@ class App extends Component {
 
 
 
+  
 
- //add demo for test2
+
+
+//demo test2
 
 startDemoTest2(){
   this.setState({instructionPageTest2:3})
