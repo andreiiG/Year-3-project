@@ -308,7 +308,8 @@ class App extends Component {
     console.log(this.trialResult)
     if(this.state.demoTest1Started){
       console.log("gets here")
-      this.setState({testStarted : true,trialset: this.trialsetvar,instructionPageTest1:4,demoTest1Started:false})
+      const shuffled = this.trialsetvar.sort(() => Math.random() - 0.5)
+      this.setState({testStarted : true,trialset: shuffled,instructionPageTest1:4,demoTest1Started:false})
       this.trialCount=this.state.trialset.length
     }else{
       this.setState({testStarted : false,trialset: this.trialsetvar,instructionPageTest1:1})
