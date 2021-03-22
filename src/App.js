@@ -789,6 +789,7 @@ startDemoTest2(){
                 <p>This test measures both your reaction time and your accuracy, so it is important to respond as quickly as you can, but without making too many errors.</p>
                 <p>To facilitate quick responding, keep your left and right index fingers over the LEFT and RIGHT arrow keys respectively.</p>
                 <p>The demo contains 8 trials for practice.</p>
+                <p>You can exist the test at any time pressing esc</p>
                 <button className="myButton" style={{outline: 'none'}} onClick={this.lastInstruction} >Previous</button>
                 <button className="myButton" style={{outline: 'none'}} onClick={this.nextInstruction} >StartTest</button>
                 <button className="myButton" style={{outline: 'none'}} onClick={this.startDemoTest1 } >Start Demo</button>
@@ -977,6 +978,7 @@ startDemoTest2(){
                         <p>You will get a positive feedback(green light) if you press the space bare correctly.</p>
                         <p>Remeber that you ened to answer in 1s , the clockhand moves per second.</p>
                         <p>To stop the Demo press the escape key otherwise the Demo won't stop</p>
+                        <p>The test itself last for 20 jumps</p>
                         <button className="myButton" onClick={this.test2MainPage} >Previous</button>
                         <button className="myButton" onClick={this.startDemoTest2}>Start Demo</button>
                         <button className="myButton" onClick={this.nextInstructionTest2} >StartTest</button>
