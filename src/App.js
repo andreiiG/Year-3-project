@@ -106,6 +106,15 @@ class App extends Component {
     this.smallJumpRightAns=0;
     this.smallJumpWrong=0;
     this.bigJumpWrong=0;
+    this.startDemoTest2=this.startDemoTest2.bind(this);
+    this.startDemo=this.startDemo.bind(this);
+    this.skip=false;
+    this.noAnswerDemo=this.noAnswerDemo.bind(this);
+    this.startDemoClock=this.startDemoClock.bind(this);
+    this.endDemo2=this.endDemo2.bind(this);
+    this.handleKeyPressTest2Demo=this.handleKeyPressTest2Demo.bind(this);
+    this.noanswerTimeoutDemo=0;
+    this.endDemoTest2Bool=false;
     
 }
 
@@ -163,7 +172,6 @@ class App extends Component {
       ],
       rotate:0,
       instructionPageTest2:1,
-      skip:false
     }
 
   async createScoresf(dictionary){
@@ -529,25 +537,26 @@ class App extends Component {
      this.setState({test2Started : true})
    }
    startClock(){
-    //make it so it uses random to skip a second
-    //write a if for when is random_number is one to skip a rotate
     this.random_number = Math.floor(Math.random()*(11-1))+1
    // console.log(random_number)
     if(this.random_number ==1){
-      this.setState({rotate: this.state.rotate+2,skip:true})
+      this.setState({rotate: this.state.rotate+2})
+      this.skip=true;
       this.trialCount++;
       this.smalljump++
       this.noanswerTimeout = setTimeout(this.noAnswer,900)
 
     }
     else if(this.random_number ==10){
-      this.setState({rotate: this.state.rotate+4,skip:true})
+      this.setState({rotate: this.state.rotate+4})
+      this.skip=true;
       this.trialCount++;
       this.bigjump++;
       this.noanswerTimeout = setTimeout(this.noAnswer,900)
     }
     else{
-      this.setState({rotate: this.state.rotate+1,skip:false})
+      this.skip=false;
+      this.setState({rotate: this.state.rotate+1})
       //console.log(this.state.rotate)
     }
     
@@ -557,7 +566,7 @@ class App extends Component {
      if(this.random_number ==10){
        this.bigjumpNoAns++;
      }else if(this.random_number ==1){
-      this.smallJumpNoAns++;
+       this.smallJumpNoAns++;
      }
      this.wronganswer++;
      this.color="red"
@@ -574,35 +583,99 @@ class App extends Component {
     }
      
    }
-   handleKeyPressTest2(){
+   handleKeyPressTest2(event){
     clearTimeout(this.noanswerTimeout);
-    if(this.state.skip==true){
-      this.color="limegreen"
-      this.correctanswer++;
-      if(this.random_number ==10){
-        this.bigJumpRightAns++;
-      }else if(this.random_number ==1){
-        this.smallJumpRightAns++;
+    if(event.keyCode==32){
+      if(this.skip==true){
+        this.color="limegreen"
+        this.correctanswer++;
+          if(this.random_number ==10){
+            this.bigJumpRightAns++;
+          }else if(this.random_number ==1){
+            this.smallJumpRightAns++;
+          }
+      }else{
+          if(this.random_number ==10){
+            this.bigJumpWrong++;
+          }else if(this.random_number ==1){
+            this.smallJumpWrong++;
+          }
+        this.color="red"
+        this.wronganswer++;
       }
-    }else{
-      if(this.random_number ==10){
-        this.bigJumpWrong++;
-      }else if(this.random_number ==1){
-        this.smallJumpWrong++;
-      }
-      this.color="red"
-      this.wronganswer++;
     }
-    this.keypressed=true;
-   }
+  }
   nextInstructionTest2(){
     this.setState({instructionPageTest2:this.state.instructionPageTest2+1})
   }
   endTest2(){
     this.createScoresTest2F();
-    this.setState({test2Started:false,instructionPageTest2:1,rotate:0})
+    this.setState({instructionPageTest2:1,rotate:0})
   }
+
+
+
+
  //add demo for test2
+
+startDemoTest2(){
+  this.setState({instructionPageTest2:3})
+ }
+
+ startDemo(){
+    document.addEventListener("keydown", this.handleKeyPressTest2Demo, false)
+    setTimeout(this.startDemoClock,1000)
+    this.color="black"
+   
+
+ }
+ startDemoClock(){
+  this.random_number = Math.floor(Math.random()*(11-1))+1
+  if(this.random_number ==1){
+    this.setState({rotate: this.state.rotate+2})
+    this.skip=true;
+    this.noanswerTimeoutDemo = setTimeout(this.noAnswerDemo,990)
+
+  }
+  else if(this.random_number ==10){
+    this.setState({rotate: this.state.rotate+4})
+    this.skip=true;
+    this.noanswerTimeoutDemo = setTimeout(this.noAnswerDemo,990)
+  }
+  else{
+    this.skip=false;
+    this.setState({rotate: this.state.rotate+1})
+  }
+ }
+ 
+ handleKeyPressTest2Demo(event){
+  if(event.keyCode==27){
+    clearTimeout(this.noanswerTimeoutDemo);
+    this.skip=false;
+    document.removeEventListener("keydown", this.handleKeyPressTest2Demo, false)
+    this.setState({instructionPageTest2:1,rotate:0})
+ }
+ if(event.keyCode==32){
+    if(this.skip==true){
+      clearTimeout(this.noanswerTimeoutDemo);
+      this.color="limegreen"
+  }else{
+    clearTimeout(this.noanswerTimeoutDemo);
+      this.color="red"
+  }
+}
+
+}
+ noAnswerDemo(){
+  this.color="red"
+ }
+ endDemo2(){
+  this.setState({instructionPageTest2:1,rotate:0})
+ }
+
+
+
+
   render() {
     if(this.state.display){
       return(
@@ -622,8 +695,8 @@ class App extends Component {
                         </center>
                         <p>You must pay attention to the <b><i>CENTRAL</i></b> arrows, and indicate which way it is pointing by pressing the LEFT or RIGHT arrow keys on the keyboard.
                         </p>
-                        <button className="previousButton" onClick={this.test1MainPage} >Previous</button>
-                        <button className="nextButton" onClick={this.nextInstruction} >Next</button>
+                        <button className="myButton" onClick={this.test1MainPage} >Previous</button>
+                        <button className="myButton" onClick={this.nextInstruction} >Next</button>
                     </div>
                   </div>
                 )
@@ -663,8 +736,8 @@ class App extends Component {
                 </table>
               </center>
               <p>Please try to keep your eyes fixed on the cross during the test, rather than moving them to look at the arrows .</p>
-              <button className="previousButton" onClick={this.lastInstruction} >Previous</button>
-              <button className="nextButton" onClick={this.nextInstruction} >Next</button>
+              <button className="myButton" onClick={this.lastInstruction} >Previous</button>
+              <button className="myButton" onClick={this.nextInstruction} >Next</button>
 
             </div>
             )
@@ -675,8 +748,8 @@ class App extends Component {
               <p>Sometimes, one or more asterisks <img src={Star} className="cue imageintext"style={{ resizeMode: "cover",height: 35,width: 35 }} alt="asterix"/> will appear shortly before the arrows.</p>
               <p>When they are presented, the asterisks always appear exactly one half second before .</p>
               <p>If only one asterisk appears, and it is above or below the cross, it also tells you the location in which the arrows will appear.</p>
-              <button className="previousButton" onClick={this.lastInstruction} >Previous</button>
-              <button className="nextButton" onClick={this.nextInstruction} >Next</button>
+              <button className="myButton" onClick={this.lastInstruction} >Previous</button>
+              <button className="myButton" onClick={this.nextInstruction} >Next</button>
             </div>
             )
           }
@@ -686,8 +759,8 @@ class App extends Component {
                 <p>As mentioned earlier, you must pay attention to the central arrow, and indicate which way it is pointing by pressing the LEFT or RIGHT arrow keys on the keyboard.</p>
                 <p>This test measures both your reaction time and your accuracy, so it is important to respond as quickly as you can, but without making too many errors.</p>
                 <p>To facilitate quick responding, keep your left and right index fingers over the LEFT and RIGHT arrow keys respectively.</p>
-                <button className="previousButton" onClick={this.lastInstruction} >Previous</button>
-                <button className="nextButton" onClick={this.nextInstruction} >Start Test</button>
+                <button className="myButton" onClick={this.lastInstruction} >Previous</button>
+                <button className="myButton" onClick={this.nextInstruction} >StartTest</button>
               </div>
             )
           }
@@ -800,7 +873,7 @@ class App extends Component {
                           )
                         }
                       }
-                  }else if(this.state.trialset[i][1]="incongruent"){    
+                  }else if(this.state.trialset[i][1]=="incongruent"){    
                     if(this.state.trialset[i][2]=="UP"){
                       if(this.state.trialset[i][4]=="L"){
                         return (
@@ -867,9 +940,15 @@ class App extends Component {
         case 1 :{
           return(
             <div>
-                        <p>write instructions here for test 2</p>
-                        <button className="previousButton" onClick={this.test2MainPage} >Previous</button>
-                        <button className="nextButton" onClick={this.nextInstructionTest2} >Next</button>
+                        <p>The second test is called Computerized Mackworth Clock Test</p>
+                        <p>In this test you watch the clock hand move around. When the hand jumps more then normally,you press space bar immediately.   </p>
+                        <p>You will get an error signal(red light in the middle) when you press the space bar key when there was no unusual clockhand jumping or when you didn't detect it.</p>
+                        <p>You will get a positive feedback(green light) if you press the space bare correctly.</p>
+                        <p>Remeber that you ened to answer in 1s , the clockhand moves per second.</p>
+                        <p>To stop the Demo press the escape key otherwise the Demo won't stop</p>
+                        <button className="myButton" onClick={this.test2MainPage} >Previous</button>
+                        <button className="myButton" onClick={this.startDemoTest2}>Start Demo</button>
+                        <button className="myButton" onClick={this.nextInstructionTest2} >StartTest</button>
              </div>
           )
         }
@@ -879,6 +958,16 @@ class App extends Component {
               
               <div className="circle"  style={{background: this.color}}></div>
               {this.setClock()}
+              <div className="hand second" style={{transform: `translateX(-50%) rotate(${this.state.rotate}deg)`}}> </div>
+          </body>
+          )
+        }
+        case 3:{
+          return(
+            <body className="pageTest2">
+              
+              <div className="circle"  style={{background: this.color}}></div>
+              {this.startDemo()}
               <div className="hand second" style={{transform: `translateX(-50%) rotate(${this.state.rotate}deg)`}}> </div>
           </body>
           )
