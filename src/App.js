@@ -17,7 +17,6 @@ class App extends Component {
 
     this.submitForm = this.submitForm.bind(this);
     this.test1MainPage = this.test1MainPage.bind(this);
-    this.getuserscore = this.getuserscore.bind(this);
     this.nextInstruction = this.nextInstruction.bind(this);
     this.lastInstruction= this.lastInstruction.bind(this);
     this.randomizeArray=this.randomizeArray.bind(this);
@@ -116,6 +115,7 @@ class App extends Component {
     this.noanswerTimeoutDemo=0;
     this.endDemoTest2Bool=false;
     this.startDemoTest1=this.startDemoTest1.bind(this)
+    this.startTest3=this.startTest3.bind(this);
     
 }
 
@@ -710,7 +710,9 @@ startDemoTest2(){
 
 //third test
 
+startTest3(){
 
+}
 
 
 
@@ -1038,6 +1040,7 @@ startDemoTest2(){
             <br></br>
             <button className ="myButton" onClick={this.submitForm}style={{ marginLeft: '1.5rem' }}>Start First Test</button>
             <button className ="myButton" onClick={this.startTest2}style={{ marginLeft: '1.5rem' }}> Start Second Test </button>
+            <button className ="myButton" onClick={this.startTest3}style={{ marginLeft: '1.5rem' }}> Start Third Test </button>
           </header>
               
         </div>
