@@ -115,6 +115,7 @@ class App extends Component {
     this.handleKeyPressTest2Demo=this.handleKeyPressTest2Demo.bind(this);
     this.noanswerTimeoutDemo=0;
     this.endDemoTest2Bool=false;
+    this.startDemoTest1=this.startDemoTest1.bind(this)
     
 }
 
@@ -170,8 +171,19 @@ class App extends Component {
         [4,'incongruent','DOWN','DOWN','L','R'],
         [4,'incongruent','DOWN','DOWN','R','L']
       ],
+      trialsetDemo:[
+        [1,'congruent','UP','N','R','R'],
+        [1,'incongruent','UP','N','L','R'],
+        [2,'congruent','UP',"C",'R','R'],
+        [2,'incongruent','DOWN',"C",'L','R'],
+        [3,'congruent','UP',"TD",'R','R'],
+        [3,'incongruent','DOWN',"TD",'L','R'],
+        [4,'incongruent','UP','UP','L','R'],
+        [4,'congruent','DOWN','DOWN','L','L'],
+      ],
       rotate:0,
       instructionPageTest2:1,
+      demoTest1Started:false,
     }
 
   async createScoresf(dictionary){
@@ -239,7 +251,11 @@ class App extends Component {
   updateSleepScore(event){
     this.sleepScore=event.target.value;
   }
-
+  startDemoTest1(){
+    this.setState({trialset:this.state.trialsetDemo,demoTest1Started:true})
+    this.trialCount=this.state.trialsetDemo.length
+    this.firstStage();
+  }
    submitForm(){
     this.trialCount=this.state.trialset.length
     this.randomizeArray()
@@ -287,9 +303,16 @@ class App extends Component {
     this.nextTrial()
   }
   endtest(){
-    this.setState({testStarted : false,trialset: this.trialsetvar,instructionPageTest1:1})
+
     console.log(this.trialResult)
+    if(this.state.demoTest1Started){
+      console.log("gets here")
+      this.setState({testStarted : true,trialset: this.trialsetvar,instructionPageTest1:4,demoTest1Started:false})
+      this.trialCount=this.state.trialset.length
+    }else{
+      this.setState({testStarted : false,trialset: this.trialsetvar,instructionPageTest1:1})
     this.calculateTest1Data();
+  }
   }
   endtestEsc(){
     this.setState({testStarted : false,trialset: this.trialsetvar,instructionPageTest1:1})
@@ -701,8 +724,8 @@ startDemoTest2(){
                         </center>
                         <p>You must pay attention to the <b><i>CENTRAL</i></b> arrows, and indicate which way it is pointing by pressing the LEFT or RIGHT arrow keys on the keyboard.
                         </p>
-                        <button className="myButton" onClick={this.test1MainPage} >Previous</button>
-                        <button className="myButton" onClick={this.nextInstruction} >Next</button>
+                        <button className="myButton"  style={{outline: 'none'}} onClick={this.test1MainPage} >Previous</button>
+                        <button className="myButton" style={{outline: 'none'}} onClick={this.nextInstruction} >Next</button>
                     </div>
                   </div>
                 )
@@ -742,8 +765,8 @@ startDemoTest2(){
                 </table>
               </center>
               <p>Please try to keep your eyes fixed on the cross during the test, rather than moving them to look at the arrows .</p>
-              <button className="myButton" onClick={this.lastInstruction} >Previous</button>
-              <button className="myButton" onClick={this.nextInstruction} >Next</button>
+              <button className="myButton" style={{outline: 'none'}} onClick={this.lastInstruction} >Previous</button>
+              <button className="myButton" style={{outline: 'none'}} onClick={this.nextInstruction} >Next</button>
 
             </div>
             )
@@ -754,8 +777,8 @@ startDemoTest2(){
               <p>Sometimes, one or more asterisks <img src={Star} className="cue imageintext"style={{ resizeMode: "cover",height: 35,width: 35 }} alt="asterix"/> will appear shortly before the arrows.</p>
               <p>When they are presented, the asterisks always appear exactly  400ms second before the arrows .</p>
               <p>If only one asterisk appears, and it is above or below the cross, it also tells you the location in which the arrows will appear.</p>
-              <button className="myButton" onClick={this.lastInstruction} >Previous</button>
-              <button className="myButton" onClick={this.nextInstruction} >Next</button>
+              <button className="myButton" style={{outline: 'none'}} onClick={this.lastInstruction} >Previous</button>
+              <button className="myButton" style={{outline: 'none'}} onClick={this.nextInstruction} >Next</button>
             </div>
             )
           }
@@ -765,8 +788,10 @@ startDemoTest2(){
                 <p>As mentioned earlier, you must pay attention to the central arrow, and indicate which way it is pointing by pressing the LEFT or RIGHT arrow keys on the keyboard.</p>
                 <p>This test measures both your reaction time and your accuracy, so it is important to respond as quickly as you can, but without making too many errors.</p>
                 <p>To facilitate quick responding, keep your left and right index fingers over the LEFT and RIGHT arrow keys respectively.</p>
-                <button className="myButton" onClick={this.lastInstruction} >Previous</button>
-                <button className="myButton" onClick={this.nextInstruction} >StartTest</button>
+                <p>The demo contains 8 trials for practice.</p>
+                <button className="myButton" style={{outline: 'none'}} onClick={this.lastInstruction} >Previous</button>
+                <button className="myButton" style={{outline: 'none'}} onClick={this.nextInstruction} >StartTest</button>
+                <button className="myButton" style={{outline: 'none'}} onClick={this.startDemoTest1 } >Start Demo</button>
               </div>
             )
           }
