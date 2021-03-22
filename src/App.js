@@ -618,7 +618,7 @@ class App extends Component {
 
 
 
-  
+
 
 
 
@@ -985,18 +985,18 @@ startDemoTest2(){
         <div className="App">
           <header className="App-header">
             
-            <label> Enter your age : <input type="text" className="inputFields" name="age" placeholder="Age"  onChange={this.updateAge}/></label>
+            <label> Enter your age : <input type="text" className="inputFields" name="age" placeholder="Age"  onChange={this.updateAge }style={{ marginLeft: '1.5rem' }}/></label>
             <br></br>
             <label>Enter your gender : <input type="text" className="inputFields" name ="gender" placeholder="Gender" onChange={this.updateGender}></input></label>
             <br></br>
-            <label>Enter hours slept : <input type="text" className="inputFields" name ="sleepH" placeholder="Sleep Hours" onChange={this.updateSleep}></input></label>
+            <label>Enter hours slept : <input type="text" className="inputFields" name ="sleepH" placeholder="Sleep Hours" onChange={this.updateSleep} style={{ marginLeft: '.5rem' }}></input></label>
             <br></br>
-            <label>Enter sleep score : <input type="text" className="inputFields" name ="Sleep Score" placeholder="Sleep Score(for FitBit)" onChange={this.updateSleepScore}></input></label>
+            <label>Enter sleep score : <input type="text" className="inputFields" name ="Sleep Score" placeholder="Sleep Score(for FitBit)" onChange={this.updateSleepScore} style={{ marginLeft: '.5rem' }}></input></label>
             
             <br></br>
             <br></br>
-            <button className ="myButton" onClick={this.submitForm}>Start First Test</button>
-            <button className ="myButton" onClick={this.startTest2}> Start Second Test </button>
+            <button className ="myButton" onClick={this.submitForm}style={{ marginLeft: '1.5rem' }}>Start First Test</button>
+            <button className ="myButton" onClick={this.startTest2}style={{ marginLeft: '1.5rem' }}> Start Second Test </button>
           </header>
               
         </div>
