@@ -272,6 +272,7 @@ class App extends Component {
    lastInstruction(){
       this.setState({instructionPageTest1 : this.state.instructionPageTest1 -1 })}
    firstStage(){
+    //document.removeEventListener("keydown",this.handleKeyPress);
       var stage1Time = Math.floor(Math.random()*(1600-400+1))+400
       //change to stage1Time
       setTimeout(this.showCue,stage1Time);}
@@ -289,7 +290,7 @@ class App extends Component {
    nextTrial(){
      if(this.trialCount>0){
        console.log(this.trialCount)
-      
+       document.removeEventListener("keydown", this.handleKeyPress)
        
     this.setState({trialset: this.state.trialset.slice(1),instructionPageTest1 : 10  })}
     else{
@@ -789,7 +790,6 @@ startDemoTest2(){
                 <p>This test measures both your reaction time and your accuracy, so it is important to respond as quickly as you can, but without making too many errors.</p>
                 <p>To facilitate quick responding, keep your left and right index fingers over the LEFT and RIGHT arrow keys respectively.</p>
                 <p>The demo contains 8 trials for practice.</p>
-                <p>You can exist the test at any time pressing esc</p>
                 <button className="myButton" style={{outline: 'none'}} onClick={this.lastInstruction} >Previous</button>
                 <button className="myButton" style={{outline: 'none'}} onClick={this.nextInstruction} >StartTest</button>
                 <button className="myButton" style={{outline: 'none'}} onClick={this.startDemoTest1 } >Start Demo</button>
@@ -798,6 +798,7 @@ startDemoTest2(){
           }
           //first stage
           case 5:{
+            
             return(
               <div id="cueType10" className="container-div"style={{display: 'flex', justifyContent : 'center', alignItems: 'center'}}>
                             <img src={Plus} className="plus"  alt="middle plus"  />
@@ -807,6 +808,7 @@ startDemoTest2(){
           }
           //second stage show cue
           case 6:{
+           
                     for(var z=0;z<this.state.trialset.length;z++){
                       if(this.state.trialset[z][3]=="N"){
                         return(
@@ -852,6 +854,7 @@ startDemoTest2(){
             }
                 //third stage remove cue 
           case 7:{
+            
             return(
                     <div id="cueType10" className="container-div"style={{display: 'flex', justifyContent : 'center', alignItems: 'center'}}>
                           <img src={Plus} className="plus"  alt="middle plus"  />
@@ -975,7 +978,7 @@ startDemoTest2(){
                         <p>The second test is called Computerized Mackworth Clock Test</p>
                         <p>In this test you watch the clock hand move around. When the hand jumps more then normally,you press space bar immediately.   </p>
                         <p>You will get an error signal(red light in the middle) when you press the space bar key when there was no unusual clockhand jumping or when you didn't detect it.</p>
-                        <p>You will get a positive feedback(green light) if you press the space bare correctly.</p>
+                        <p>You will get a positive feedback(green light) if you press the space bar correctly.</p>
                         <p>Remeber that you ened to answer in 1s , the clockhand moves per second.</p>
                         <p>To stop the Demo press the escape key otherwise the Demo won't stop</p>
                         <p>The test itself last for 20 jumps</p>
