@@ -120,7 +120,7 @@ class App extends Component {
 }
 
   componentDidMount = () => {
-    this.getuserscore()
+    //this.getuserscore()
     this.setState({height: window.innerHeight + 'px'});
     this.setState({width: window.innerWidth + 'px'});
   }
@@ -186,25 +186,22 @@ class App extends Component {
       demoTest1Started:false,
     }
 
-  async createScoresf(dictionary){
-    try {
-      //const createdScore= dictionary
-      const createdScore= { username: this.state.username ,scoreTest1 : 200, scoreTest2 : 800 ,scoreTest3: 200 ,sleephours: 10 ,basetype : 'score'}
-      //const response = 
-      await API.graphql(graphqlOperation(createScores,{input : createdScore }))
-      console.log('user created ')
-    } catch (error) {
-       console.log('user was not created ',error)
-     }
-   }
+  // async createScoresf(dictionary){
+  //   try {
+  //     //const createdScore= dictionary
+  //     const createdScore= { username: this.state.username ,scoreTest1 : 200, scoreTest2 : 800 ,scoreTest3: 200 ,sleephours: 10 ,basetype : 'score'}
+  //     //const response = 
+  //     await API.graphql(graphqlOperation(createScores,{input : createdScore }))
+  //     console.log('user created ')
+  //   } catch (error) {
+  //      console.log('user was not created ',error)
+  //    }
+  //  }
    async createScoresTest1F(meanCaux,meanCNaux,meanCCaux,meanCTDaux,meanCSaux,meanIaux,meanINaux,meanICaux,meanITDaux,meanISaux,congAns,congNAns,congCans,congTDans,congSans,incongAns,incongNAns,incongCans,incongTDans,incongSans){
     try {
       const createdScoreTest1= { username: this.state.username, age: this.age, sleephours: this.sleephours,sleepscore: this.sleepScore,gender : this.gender, meanCongruent :meanCaux , meanIncongruent: meanIaux, meanCongruentN:meanCNaux ,meanIncongruentN: meanINaux,  meanCongruentC: meanCCaux,
        meanIncongruentC: meanICaux,meanCongruentTD: meanCTDaux,meanIncongruentTD :meanITDaux, meanCongruentS:meanCSaux, meanIncongruentS : meanISaux, CongruentAnswer:congAns, IncongruentAnswer:incongAns, CongruentNAnswer:congNAns,
       IncongruentNAnswer:incongNAns, CongruentCAnswer:congCans, IncongruentCAnswer:incongCans, CongruentTDAnswer:congTDans , IncongruentTDAnswer:incongTDans, CongruentSAnswer:congSans, IncongruentSAnswer:incongSans , basetype : 'score'}
-      // const createdScoreTest1= { username: this.state.username, age: 21, gender : 'M', meanCongruent :meanCaux , meanIncongruent: 0, meanCongruentN:meanCNaux ,meanIncongruentN: 0,  meanCongruentC: 0,
-      //  meanIncongruentC: 0,meanCongruentTD: 0,meanIncongruentTD :0, meanCongruentS:0, meanIncongruentS : 0, CongruentAnswer:congAns, IncongruentAnswer:0, CongruentNAnswer:congNAns,
-      // IncongruentNAnswer:0, CongruentCAnswer:0, IncongruentCAnswer:0, CongruentTDAnswer:0 , IncongruentTDAnswer:0, CongruentSAnswer:0, IncongruentSAnswer:0 , basetype : 'score'}
       await API.graphql(graphqlOperation(createScoresTest1,{input : createdScoreTest1 }))
       console.log('score create for '+this.state.username)
     } catch (error) {
@@ -224,21 +221,21 @@ class App extends Component {
         console.log('scoreTest 2 was not created ',error)
      }
    }
-   async getuserscore(){
-     try {
-        const response = await API.graphql(graphqlOperation(listScoress,{
-           filter:{
-             username :{
-             eq: this.state.username
-             }
-           }
-         }))
-         const repsponsedata= response.data.listScoress.items
-         this.setState({items: repsponsedata})
-         console.log('this user has this many entries',repsponsedata)
-     } catch (error) {
-     }
-   }
+  //  async getuserscore(){
+  //    try {
+  //       const response = await API.graphql(graphqlOperation(listScoress,{
+  //          filter:{
+  //            username :{
+  //            eq: this.state.username
+  //            }
+  //          }
+  //        }))
+  //        const repsponsedata= response.data.listScoress.items
+  //        this.setState({items: repsponsedata})
+  //        console.log('this user has this many entries',repsponsedata)
+  //    } catch (error) {
+  //    }
+  //  }
    updateAge(event){
      this.age=event.target.value;
    }
@@ -251,6 +248,12 @@ class App extends Component {
   updateSleepScore(event){
     this.sleepScore=event.target.value;
   }
+
+
+
+
+
+  //test1 
   startDemoTest1(){
     this.setState({trialset:this.state.trialsetDemo,demoTest1Started:true})
     this.trialCount=this.state.trialsetDemo.length
@@ -272,16 +275,13 @@ class App extends Component {
    lastInstruction(){
       this.setState({instructionPageTest1 : this.state.instructionPageTest1 -1 })}
    firstStage(){
-    //document.removeEventListener("keydown",this.handleKeyPress);
       var stage1Time = Math.floor(Math.random()*(1600-400+1))+400
-      //change to stage1Time
       setTimeout(this.showCue,stage1Time);}
 
    secondStage(){
       setTimeout(this.nextInstruction,100)}
    thirdStage(){
       this.trialCount--;
-      //change to 400
       setTimeout(this.nextInstruction,400)
    }
    showCue(){
@@ -560,6 +560,10 @@ class App extends Component {
 
 
 
+
+
+
+
    //test2 functions
    startTest2(){
      this.setState({test2Started : true})
@@ -703,6 +707,12 @@ startDemoTest2(){
  endDemo2(){
   this.setState({instructionPageTest2:1,rotate:0})
  }
+
+//third test
+
+
+
+
 
 
 
@@ -1016,11 +1026,11 @@ startDemoTest2(){
         <div className="App">
           <header className="App-header">
             
-            <label> Enter your age : <input type="text" className="inputFields" name="age" placeholder="Age"  onChange={this.updateAge }style={{ marginLeft: '1.5rem' }}/></label>
+            <label> Enter your age* : <input type="text" className="inputFields" name="age" placeholder="Age"  onChange={this.updateAge }style={{ marginLeft: '1.5rem' }}/></label>
             <br></br>
-            <label>Enter your gender : <input type="text" className="inputFields" name ="gender" placeholder="Gender" onChange={this.updateGender}></input></label>
+            <label>Enter your gender* : <input type="text" className="inputFields" name ="gender" placeholder="Gender" onChange={this.updateGender}></input></label>
             <br></br>
-            <label>Enter hours slept : <input type="text" className="inputFields" name ="sleepH" placeholder="Sleep Hours" onChange={this.updateSleep} style={{ marginLeft: '.5rem' }}></input></label>
+            <label>Enter hours slept* : <input type="text" className="inputFields" name ="sleepH" placeholder="Sleep Hours" onChange={this.updateSleep} style={{ marginLeft: '.5rem' }}></input></label>
             <br></br>
             <label>Enter sleep score : <input type="text" className="inputFields" name ="Sleep Score" placeholder="Sleep Score(for FitBit)" onChange={this.updateSleepScore} style={{ marginLeft: '.5rem' }}></input></label>
             
