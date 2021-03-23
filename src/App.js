@@ -618,6 +618,7 @@ class App extends Component {
     clearTimeout(this.noanswerTimeout);
     if(event.keyCode==32){
       if(this.skip==true){
+        this.skip=false;
         this.color="limegreen"
         this.correctanswer++;
           if(this.random_number ==10){
