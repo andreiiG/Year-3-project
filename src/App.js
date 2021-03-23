@@ -417,55 +417,32 @@ class App extends Component {
             incongAns++;
             switch(this.trialResult[aux][2]){
               case 'N' :{
+                meanIN.push(auxtime)
                 incongNAns++;
                 break;
               }
               case 'TD':{
+                meanITD.push(auxtime)
                 incongTDans++;
                 break;
               }
               case 'C':{
+                meanIC.push(auxtime)
                 incongCans++;
                 break;
               }
               case 'DOWN':{
+                meanIS.push(auxtime)
                 incongSans++;
                 break;
               }
               case 'UP':{
+                meanIS.push(auxtime)
                 incongSans++;
                 break;
               }
             }
-            
-          }
-          switch(this.trialResult[aux][2]){
-            case 'N' :{
-              meanIN.push(auxtime)
-              incongNAns++;
-              break;
-            }
-            case 'TD':{
-              meanITD.push(auxtime)
-              incongTDans++;
-              break;
-            }
-            case 'C':{
-              meanIC.push(auxtime)
-              incongCans++;
-              break;
-            }
-            case 'DOWN':{
-              meanIS.push(auxtime)
-              incongSans++;
-              break;
-            }
-            case 'UP':{
-              meanIS.push(auxtime)
-              incongSans++;
-              break;
-            }
-          }
+        }
 
             
         }else if(this.trialResult[aux][0]=="congruent"){
@@ -481,13 +458,16 @@ class App extends Component {
             switch(this.trialResult[aux][2]){
               case 'N' :{
                 congNAns++;
+                meanCN.push(auxtime)
                 break;
               }
               case 'TD':{
+                meanCTD.push(auxtime)
                 congTDans++;
                 break;
               }
               case 'C':{
+                meanCC.push(auxtime)
                 congCans++;
                 break;
               }
@@ -503,35 +483,8 @@ class App extends Component {
               }
             }
           }
-          switch(this.trialResult[aux][2]){
-            case 'N' :{
-              meanCN.push(auxtime)
-              congNAns++;
-              break;
-            }
-            case 'TD':{
-              meanCTD.push(auxtime)
-              congTDans++;
-              break;
-            }
-            case 'C':{
-              meanCC.push(auxtime)
-              congCans++;
-              break;
-            }
-            case 'DOWN':{
-              meanCS.push(auxtime)
-              congSans++;
-              break;
-            }
-            case 'UP':{
-              meanCS.push(auxtime)
-              congSans++;
-              break;
-            }
-          }
-
-        }
+     }
+        
      } 
      var meanCaux =0;
      var meanCNaux=0;
