@@ -3,8 +3,7 @@ import './App.css';
 import { withAuthenticator } from 'aws-amplify-react'
 import Amplify, { Auth,API,graphqlOperation } from 'aws-amplify';
 import aws_exports from './aws-exports';
-import {listScoress} from './graphql/queries';
-import {createScores,createScoresTest1,createScoreTest2} from './graphql/mutations'
+import {createScoresTest1,createScoreTest2} from './graphql/mutations'
 import ArrowRight from './images/ArrowRight.jpg'
 import ArrowLeft from './images/ArrowLeft.jpg'
 import Plus from './images/plus.jpg'
@@ -31,7 +30,7 @@ class App extends Component {
     this.secondtimer=0;
     this.trialResult=[];
     this.trialCount = 0;
-    this.gender= ""
+    this.gender= " "
     this.age=0;
     this.sleephours=0;
     this.sleepScore=0;
@@ -199,7 +198,7 @@ class App extends Component {
   //  }
    async createScoresTest1F(meanCaux,meanCNaux,meanCCaux,meanCTDaux,meanCSaux,meanIaux,meanINaux,meanICaux,meanITDaux,meanISaux,congAns,congNAns,congCans,congTDans,congSans,incongAns,incongNAns,incongCans,incongTDans,incongSans){
     try {
-      const createdScoreTest1= { username: this.state.username, age: this.age, sleephours: this.sleephours,sleepscore: this.sleepScore,gender : this.gender, meanCongruent :meanCaux , meanIncongruent: meanIaux, meanCongruentN:meanCNaux ,meanIncongruentN: meanINaux,  meanCongruentC: meanCCaux,
+      const createdScoreTest1= { username: this.state.username, age: this.age, sleephours: this.sleephours,sleepScore: this.sleepScore,gender : this.gender, meanCongruent :meanCaux , meanIncongruent: meanIaux, meanCongruentN:meanCNaux ,meanIncongruentN: meanINaux,  meanCongruentC: meanCCaux,
        meanIncongruentC: meanICaux,meanCongruentTD: meanCTDaux,meanIncongruentTD :meanITDaux, meanCongruentS:meanCSaux, meanIncongruentS : meanISaux, CongruentAnswer:congAns, IncongruentAnswer:incongAns, CongruentNAnswer:congNAns,
       IncongruentNAnswer:incongNAns, CongruentCAnswer:congCans, IncongruentCAnswer:incongCans, CongruentTDAnswer:congTDans , IncongruentTDAnswer:incongTDans, CongruentSAnswer:congSans, IncongruentSAnswer:incongSans , basetype : 'score'}
       await API.graphql(graphqlOperation(createScoresTest1,{input : createdScoreTest1 }))
@@ -731,12 +730,12 @@ startTest3(){
                     <div> 
                       <div id="instructionPage1" className="instructionsPage"  >
                         <p>It is better to use fullscreen, press F11 for entering full screen</p>
-                        <p>This test measures some aspects of attention, and takes about 10 minutes to complete.</p>
+                        <p>This test measures some aspects of attention, and takes about 5 minutes to complete.</p>
                         <p>You will see 5 arrows on the computer screen</p>
                         <center>
                         <img src={ArrowRight} alt="right Arrow" /><img src={(ArrowRight)} alt="right Arrow" /><img src={ArrowRight}  alt="right Arrow" /><img src={ArrowRight} alt="right Arrow" /><img src={ArrowRight} alt="right Arrow" />
                         </center>
-                        <p>You must pay attention to the <b><i>CENTRAL</i></b> arrows, and indicate which way it is pointing by pressing the LEFT or RIGHT arrow keys on the keyboard.
+                        <p>You must pay attention to the <b><i>CENTRAL</i></b> arrow, and indicate which way it is pointing by pressing the LEFT or RIGHT arrow keys on the keyboard.
                         </p>
                         <button className="myButton"  style={{outline: 'none'}} onClick={this.test1MainPage} >Previous</button>
                         <button className="myButton" style={{outline: 'none'}} onClick={this.nextInstruction} >Next</button>
