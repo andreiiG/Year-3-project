@@ -946,7 +946,7 @@ startTest3(){
                         <p>In this test you watch the clock hand move around. When the hand jumps more then normally,you press space bar immediately.   </p>
                         <p>You will get an error signal(red light in the middle) when you press the space bar key when there was no unusual clockhand jumping or when you didn't detect it.</p>
                         <p>You will get a positive feedback(green light) if you press the space bar correctly.</p>
-                        <p>Remeber that you need to answer in one second , the clockhand moves once per second.</p>
+                        <p>Remember that you need to answer in one second , the clockhand moves once per second.</p>
                         <p>To stop the Demo press the escape key otherwise the Demo won't stop</p>
                         <p>The test itself last for 20 jumps</p>
                         <button className="myButton" onClick={this.test2MainPage} >Previous</button>
@@ -984,13 +984,13 @@ startTest3(){
         <div className="App">
           <header className="App-header">
             
-            <label> Enter your age* : <input type="text" className="inputFields" name="age" placeholder="Age"  onChange={this.updateAge }style={{ marginLeft: '1.5rem' }}/></label>
+            <label> Enter your age* : <input type="text" className="inputFields" name="age" placeholder="Age"  onChange={this.updateAge }style={{ marginLeft: '5.4rem' }}/></label>
             <br></br>
-            <label>Enter your gender* : <input type="text" className="inputFields" name ="gender" placeholder="Gender" onChange={this.updateGender}></input></label>
+            <label>Enter your gender* : <input type="text" className="inputFields" name ="gender" placeholder="Gender" onChange={this.updateGender} style={{ marginLeft: '3.8rem' }}></input></label>
             <br></br>
-            <label>Enter hours slept last night* : <input type="text" className="inputFields" name ="sleepH" placeholder="Sleep Hours" onChange={this.updateSleep} style={{ marginLeft: '.5rem' }}></input></label>
+            <label>Enter hours slept last night* : <input type="text" className="inputFields" name ="sleepH" placeholder="Sleep Hours" onChange={this.updateSleep} ></input></label>
             <br></br>
-            <label>Enter sleep score : <input type="text" className="inputFields" name ="Sleep Score" placeholder="Sleep Score(for FitBit)" onChange={this.updateSleepScore} style={{ marginLeft: '.5rem' }}></input></label>
+            <label>Enter sleep score : <input type="text" className="inputFields" name ="Sleep Score" placeholder="Sleep Score(for FitBit)" onChange={this.updateSleepScore} style={{ marginLeft: '4.8rem' }}></input></label>
             
             <br></br>
             <br></br>
