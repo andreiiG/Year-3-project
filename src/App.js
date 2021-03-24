@@ -136,6 +136,7 @@ class App extends Component {
       time : 0,
       timer: 0,
       test2Started: false,
+      test3Started: false,
       trialset: [
         [1,'congruent','UP','N','L','L'],
         [1,'congruent','UP','N','R','R'],
@@ -306,13 +307,13 @@ class App extends Component {
 
     console.log(this.trialResult)
     if(this.state.demoTest1Started){
-      console.log("gets here")
       const shuffled = this.trialsetvar.sort(() => Math.random() - 0.5)
       this.setState({testStarted : true,trialset: shuffled,instructionPageTest1:4,demoTest1Started:false})
       this.trialCount=this.state.trialset.length
+      this.trialResult=[]
     }else{
       this.setState({testStarted : false,trialset: this.trialsetvar,instructionPageTest1:1})
-    this.calculateTest1Data();
+      this.calculateTest1Data();
   }
   }
   endtestEsc(){
@@ -945,7 +946,7 @@ startTest3(){
                         <p>In this test you watch the clock hand move around. When the hand jumps more then normally,you press space bar immediately.   </p>
                         <p>You will get an error signal(red light in the middle) when you press the space bar key when there was no unusual clockhand jumping or when you didn't detect it.</p>
                         <p>You will get a positive feedback(green light) if you press the space bar correctly.</p>
-                        <p>Remeber that you ened to answer in 1s , the clockhand moves per second.</p>
+                        <p>Remeber that you need to answer in one second , the clockhand moves once per second.</p>
                         <p>To stop the Demo press the escape key otherwise the Demo won't stop</p>
                         <p>The test itself last for 20 jumps</p>
                         <button className="myButton" onClick={this.test2MainPage} >Previous</button>
@@ -975,7 +976,9 @@ startTest3(){
           )
         }
       }
-      }
+    }else if(this.state.test3Started){
+
+    }
     else{
       return (
         <div className="App">
@@ -985,7 +988,7 @@ startTest3(){
             <br></br>
             <label>Enter your gender* : <input type="text" className="inputFields" name ="gender" placeholder="Gender" onChange={this.updateGender}></input></label>
             <br></br>
-            <label>Enter hours slept* : <input type="text" className="inputFields" name ="sleepH" placeholder="Sleep Hours" onChange={this.updateSleep} style={{ marginLeft: '.5rem' }}></input></label>
+            <label>Enter hours slept last night* : <input type="text" className="inputFields" name ="sleepH" placeholder="Sleep Hours" onChange={this.updateSleep} style={{ marginLeft: '.5rem' }}></input></label>
             <br></br>
             <label>Enter sleep score : <input type="text" className="inputFields" name ="Sleep Score" placeholder="Sleep Score(for FitBit)" onChange={this.updateSleepScore} style={{ marginLeft: '.5rem' }}></input></label>
             
