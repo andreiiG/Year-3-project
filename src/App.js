@@ -987,7 +987,7 @@ noAnswerTest3(){
                         <p>The test itself last for 20 jumps</p>
                         <button className="myButton" onClick={this.test2MainPage} >Previous</button>
                         <button className="myButton" onClick={this.startDemoTest2}>Start Demo</button>
-                        <button className="myButton" onClick={this.nextInstructionTest2} >StartTest</button>
+                        <button className="myButton" onClick={this.nextInstructionTest2} >Start Test</button>
              </div>
           )
         }
@@ -1072,7 +1072,7 @@ noAnswerTest3(){
             <br></br>
             <button className ="myButton" onClick={this.submitForm}style={{ marginLeft: '1.5rem' }}>Start First Test</button>
             <button className ="myButton" onClick={this.startTest2}style={{ marginLeft: '1.5rem' }}> Start Second Test </button>
-            <button className ="myButton" onClick={this.prepareTest3}style={{ marginLeft: '1.5rem' }}> Start Third Test </button>
+
           </header>
               
         </div>
@@ -1080,6 +1080,6 @@ noAnswerTest3(){
     }
   }
 }
-
+//            <button className ="myButton" onClick={this.prepareTest3}style={{ marginLeft: '1.5rem' }}> Start Third Test </button>
 
 export default withAuthenticator(App, true);
