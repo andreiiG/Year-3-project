@@ -115,6 +115,11 @@ class App extends Component {
     this.endDemoTest2Bool=false;
     this.startDemoTest1=this.startDemoTest1.bind(this)
     this.startTest3=this.startTest3.bind(this);
+    this.test3MainPage=this.test3MainPage.bind(this);
+    this.prepareTest3=this.prepareTest3.bind(this);
+    this.startInput=this.startInput.bind(this);
+    this.startTimerTest3=this.startTimerTest3.bind(this);
+    this.noAnswerTest3=this.noAnswerTest3.bind(this);
     
 }
 
@@ -184,6 +189,8 @@ class App extends Component {
       rotate:0,
       instructionPageTest2:1,
       demoTest1Started:false,
+      listTest3:[],
+      instructionPageTest3:1
     }
 
   // async createScoresf(dictionary){
@@ -265,6 +272,7 @@ class App extends Component {
    }
    test1MainPage(){this.setState({testStarted :false})}
    test2MainPage(){this.setState({test2Started:false})}
+   test3MainPage(){this.setState({test3Started:false})}
    randomizeArray(){
       const shuffled = this.state.trialset.sort(() => Math.random() - 0.5)
       this.setState({trialset : shuffled,testStarted : true})
@@ -278,8 +286,7 @@ class App extends Component {
       var stage1Time = Math.floor(Math.random()*(1600-400+1))+400
       setTimeout(this.showCue,stage1Time);}
 
-   secondStage(){
-      setTimeout(this.nextInstruction,100)}
+   secondStage(){setTimeout(this.nextInstruction,100)}
    thirdStage(){
       this.trialCount--;
       setTimeout(this.nextInstruction,400)
@@ -447,38 +454,38 @@ class App extends Component {
 
             
         }else if(this.trialResult[aux][0]=="congruent"){
-          var auxtime=this.trialResult[aux][5]-this.trialResult[aux][4]
-          if(auxtime>1700){
-            auxtime=1700
-            meanC.push(auxtime)
+          var auxtimec=this.trialResult[aux][5]-this.trialResult[aux][4]
+          if(auxtimec>1700){
+            auxtimec=1700
+            meanC.push(auxtimec)
           }else{
-            meanC.push(auxtime)
+            meanC.push(auxtimec)
           }
           if(this.trialResult[aux][6]=="C"){
             congAns++;
             switch(this.trialResult[aux][2]){
               case 'N' :{
                 congNAns++;
-                meanCN.push(auxtime)
+                meanCN.push(auxtimec)
                 break;
               }
               case 'TD':{
-                meanCTD.push(auxtime)
+                meanCTD.push(auxtimec)
                 congTDans++;
                 break;
               }
               case 'C':{
-                meanCC.push(auxtime)
+                meanCC.push(auxtimec)
                 congCans++;
                 break;
               }
               case 'DOWN':{
-                meanCS.push(auxtime)
+                meanCS.push(auxtimec)
                 congSans++;
                 break;
               }
               case 'UP':{
-                meanCS.push(auxtime)
+                meanCS.push(auxtimec)
                 congSans++;
                 break;
               }
@@ -666,9 +673,27 @@ startDemoTest2(){
 
 startTest3(){
 
+  var list =[1,2,3,4]
+  const shuffled = list.sort(() => Math.random() - 0.5)
+  var random_number_test = Math.floor(Math.random()*(4-0))+0
+  shuffled.push(list[random_number_test])
+  console.log(shuffled)
+  this.setState({instructionPageTest3:this.state.instructionPageTest3+1,listTest3:shuffled})
+  setTimeout(this.startInput,20000)
+  
 }
+startInput(){
+this.setState({instructionPageTest3:this.state.instructionPageTest3+1})
+}
+prepareTest3(){
+  this.setState({test3Started:true})
+}
+startTimerTest3(){
+  setTimeout(this.noAnswerTest3,20000)
+}
+noAnswerTest3(){
 
-
+}
 
 
 
@@ -680,6 +705,11 @@ startTest3(){
        )
     }else if(this.state.testStarted){
         switch(this.state.instructionPageTest1){
+          default:{
+            return(
+              <div>Something went wrong</div>
+            )
+          }
           case 1:{
                 return(
                     <div> 
@@ -819,9 +849,10 @@ startTest3(){
                 }
               }
             }
-                //third stage remove cue 
+            /* falls through */
+
           case 7:{
-            
+                            //third stage remove cue 
             return(
                     <div id="cueType10" className="container-div"style={{display: 'flex', justifyContent : 'center', alignItems: 'center'}}>
                           <img src={Plus} className="plus"  alt="middle plus"  />
@@ -939,6 +970,11 @@ startTest3(){
 
     }else if(this.state.test2Started){
       switch(this.state.instructionPageTest2){
+        default:{
+          return(
+            <div>Something went wrong</div>
+          )
+        }
         case 1 :{
           return(
             <div>
@@ -977,6 +1013,46 @@ startTest3(){
         }
       }
     }else if(this.state.test3Started){
+      switch(this.state.instructionPageTest3){
+        default:{
+          return(
+            <div>Something went wrong</div>
+          )
+        }
+        case 1:{
+          return(
+            <div>
+            <div className="listTest3">{this.state.listTest3}</div>
+            <p style={{ marginLeft: '1.5rem' }}>In the next test 5 numbers(from 1 to 4) will appear on the screen for 20 seconds.</p >
+            <p style={{ marginLeft: '1.5rem' }}>You will need to recreate the sequence of numbers by pressing z,x,c,v keys on the keyboard</p>
+            <p style={{ marginLeft: '1.5rem' }}>The z key represents 1, the x key represents 2, the c key represents 3 and the v key represents 4</p>
+            <p style={{ marginLeft: '1.5rem' }}>Exemple: the number 43212 appears on the screen. </p>
+            <p style={{ marginLeft: '1.5rem' }}>After the the number disappears you need to press v c x z x for a correct answer.</p>
+            <p style={{ marginLeft: '1.5rem' }}>You have 20 seconds to press the 5 keys </p>
+            <p style={{ marginLeft: '1.5rem' }}>There is pause of 10 seconds between each trial.</p>
+            <button className="myButton" onClick={this.test3MainPage}  style={{ marginLeft: '1.5rem' }}>Previous</button>
+            <button className="myButton" onClick={this.startTest3}  style={{ marginLeft: '1.5rem' }}>Start Test</button>
+    
+            </div>
+          )
+        }
+        case 2:{
+          return(
+            <div>
+            <div className="listTest3">{this.state.listTest3}</div>
+    
+            </div>
+          )
+        }
+        case 3: {
+          return(
+            <div>
+              <div className="timerTest3Text">Timer started !</div> 
+            {this.startTimerTest3()}
+            </div>
+          )
+        }
+      }
 
     }
     else{
@@ -996,7 +1072,7 @@ startTest3(){
             <br></br>
             <button className ="myButton" onClick={this.submitForm}style={{ marginLeft: '1.5rem' }}>Start First Test</button>
             <button className ="myButton" onClick={this.startTest2}style={{ marginLeft: '1.5rem' }}> Start Second Test </button>
-            <button className ="myButton" onClick={this.startTest3}style={{ marginLeft: '1.5rem' }}> Start Third Test </button>
+            <button className ="myButton" onClick={this.prepareTest3}style={{ marginLeft: '1.5rem' }}> Start Third Test </button>
           </header>
               
         </div>
