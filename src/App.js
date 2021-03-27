@@ -635,7 +635,7 @@ class App extends Component {
   }
   endTest2(){
     this.createScoresTest2F();
-    this.setState({instructionPageTest2:1,rotate:0})
+    this.setState({instructionPageTest2:1,rotate:0,test2Started:false})
   }
 
 
@@ -713,7 +713,7 @@ startTest3(){
   this.setState({instructionPageTest3:this.state.instructionPageTest3+1,listTest3:shuffled})
   this.auxlistTest3=shuffled
   this.trialCountTest3++;
-  setTimeout(this.startInput,2000)
+  setTimeout(this.startInput,20000)
 }
 startInput(){
 this.setState({instructionPageTest3:3})
