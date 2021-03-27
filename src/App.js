@@ -713,7 +713,7 @@ startTest3(){
   this.setState({instructionPageTest3:this.state.instructionPageTest3+1,listTest3:shuffled})
   this.auxlistTest3=shuffled
   this.trialCountTest3++;
-  setTimeout(this.startInput,20000)
+  setTimeout(this.startInput,15000)
 }
 startInput(){
 this.setState({instructionPageTest3:3})
@@ -724,12 +724,14 @@ prepareTest3(){
 startTimerTest3(){
   this.timerTest3=new Date().getTime()
   document.addEventListener("keydown", this.handleKeyPressTest3, false)
-  this.timeoutTest3= setTimeout(this.noAnswerTest3,20000)
+  this.timeoutTest3= setTimeout(this.noAnswerTest3,15000)
+  this.rightAnsTrialTest3=0;
+  this.wrongAnsTrialTest3=0;
 }
 noAnswerTest3(){
   this.nextTrialTest3();
   document.removeEventListener("keydown", this.handleKeyPressTest3, false)
-  this.trialResultTest3.push([this.state.listTest3,20000,this.wrongAnsTrialTest3,this.rightAnsTrialTest3])
+  this.trialResultTest3.push([this.state.listTest3,15000,this.wrongAnsTrialTest3,this.rightAnsTrialTest3])
 }
 handleKeyPressTest3(event){
 
@@ -742,7 +744,7 @@ handleKeyPressTest3(event){
  if(event.keyCode==67){
     if(this.auxlistTest3[0]==3){
       this.auxlistTest3.shift()
-      this.rightAnsTrialTest3++
+      this.rightAnsTrialTest3++;
     }else{
       this.auxlistTest3.shift()
       this.wrongAnsTrialTest3++;
@@ -751,7 +753,7 @@ handleKeyPressTest3(event){
  if(event.keyCode==86){
     if(this.auxlistTest3[0]==4){
       this.auxlistTest3.shift()
-      this.rightAnsTrialTest3++
+      this.rightAnsTrialTest3++;
     }else{
       this.auxlistTest3.shift()
       this.wrongAnsTrialTest3++;
@@ -760,7 +762,7 @@ handleKeyPressTest3(event){
   if(event.keyCode==88){
       if(this.auxlistTest3[0]==2){
         this.auxlistTest3.shift()
-        this.rightAnsTrialTest3++
+        this.rightAnsTrialTest3++;
       }else{
         this.auxlistTest3.shift()
         this.wrongAnsTrialTest3++;
@@ -769,7 +771,7 @@ handleKeyPressTest3(event){
   if(event.keyCode==90){
       if(this.auxlistTest3[0]==1){
         this.auxlistTest3.shift()
-        this.rightAnsTrialTest3++
+        this.rightAnsTrialTest3++;
       }else{
         this.auxlistTest3.shift()
         this.wrongAnsTrialTest3++;
@@ -777,11 +779,11 @@ handleKeyPressTest3(event){
  }
  console.log(this.trialCountTest3)
  if(this.auxlistTest3.length==0){
-   console.log('one trial finish')
    clearTimeout(this.timeoutTest3)
    document.removeEventListener("keydown", this.handleKeyPressTest3, false)
    var auxtime= new Date().getTime()
    var time= auxtime -this.startTimerTest3
+   console.log(this.rightAnsTrialTest3+ "correct press ")
    this.trialResultTest3.push([this.state.listTest3,time,this.wrongAnsTrialTest3,this.rightAnsTrialTest3])
    this.nextTrialTest3();
 
@@ -797,7 +799,7 @@ nextTrialTest3(){
     shuffled.push(list[random_number_test])
     this.setState({instructionPageTest3:2,listTest3:shuffled})
     this.auxlistTest3=shuffled
-    setTimeout(this.startInput,20000)
+    setTimeout(this.startInput,15000)
     this.trialCountTest3++;
   }
 
@@ -1183,13 +1185,12 @@ calculateDataTest3(){
           return(
             <div>
             <div className="listTest3">{this.state.listTest3}</div>
-            <p style={{ marginLeft: '1.5rem' }}>In the next test 5 numbers(from 1 to 4) will appear on the screen for 20 seconds.</p >
+            <p style={{ marginLeft: '1.5rem' }}>In the next test 5 numbers(from 1 to 4) will appear on the screen for 15 seconds.</p >
             <p style={{ marginLeft: '1.5rem' }}>You will need to recreate the sequence of numbers by pressing z,x,c,v keys on the keyboard</p>
             <p style={{ marginLeft: '1.5rem' }}>The z key represents 1, the x key represents 2, the c key represents 3 and the v key represents 4</p>
             <p style={{ marginLeft: '1.5rem' }}>Exemple: the number 43212 appears on the screen. </p>
             <p style={{ marginLeft: '1.5rem' }}>After the the number disappears you need to press v c x z x for a correct answer.</p>
-            <p style={{ marginLeft: '1.5rem' }}>You have 20 seconds to press the 5 keys </p>
-            <p style={{ marginLeft: '1.5rem' }}>There is pause of 10 seconds between each trial.</p>
+            <p style={{ marginLeft: '1.5rem' }}>You have 15 seconds to press the 5 keys </p>
             <button className="myButton" onClick={this.test3MainPage}  style={{ marginLeft: '1.5rem' }}>Previous</button>
             <button className="myButton" onClick={this.startTest3}  style={{ marginLeft: '1.5rem' }}>Start Test</button>
     
