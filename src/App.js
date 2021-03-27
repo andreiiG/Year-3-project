@@ -782,7 +782,8 @@ handleKeyPressTest3(event){
    clearTimeout(this.timeoutTest3)
    document.removeEventListener("keydown", this.handleKeyPressTest3, false)
    var auxtime= new Date().getTime()
-   var time= auxtime -this.startTimerTest3
+   var time= auxtime -this.timerTest3
+   console.log(time)
    console.log(this.rightAnsTrialTest3+ "correct press ")
    this.trialResultTest3.push([this.state.listTest3,time,this.wrongAnsTrialTest3,this.rightAnsTrialTest3])
    this.nextTrialTest3();
@@ -841,7 +842,7 @@ calculateDataTest3(){
   if(correctansaux==0){
     meantimecorrect= timecorrect;
   }else{
-    meantimecorrect= meantimecorrect + timecorrect/correctansaux;
+    meantimecorrect= timecorrect/correctansaux;
   }
   if(wrongans==0){
     meantimewrong= timewrong;
