@@ -170,6 +170,55 @@ export const listScoreTest2s = /* GraphQL */ `
     }
   }
 `;
+export const getScoreTest3 = /* GraphQL */ `
+  query GetScoreTest3($id: ID!) {
+    getScoreTest3(id: $id) {
+      id
+      username
+      age
+      sleephours
+      sleepScore
+      gender
+      correctAnswer
+      correctAnswerTime
+      wrongAnswer
+      wrongAnswerTime
+      almostCorrectAnswer
+      almostCorrectAnswerTime
+      basetype
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listScoreTest3s = /* GraphQL */ `
+  query ListScoreTest3s(
+    $filter: ModelScoreTest3FilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listScoreTest3s(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        username
+        age
+        sleephours
+        sleepScore
+        gender
+        correctAnswer
+        correctAnswerTime
+        wrongAnswer
+        wrongAnswerTime
+        almostCorrectAnswer
+        almostCorrectAnswerTime
+        basetype
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const scoresByUsernameAndBaseType = /* GraphQL */ `
   query ScoresByUsernameAndBaseType(
     $basetype: String
@@ -287,6 +336,44 @@ export const scoresByUsernameTest2 = /* GraphQL */ `
         bigJumpWrong
         smallJumpWrong
         trials
+        basetype
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const scoresByUsernameTest3 = /* GraphQL */ `
+  query ScoresByUsernameTest3(
+    $basetype: String
+    $username: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelScoreTest3FilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    ScoresByUsernameTest3(
+      basetype: $basetype
+      username: $username
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        username
+        age
+        sleephours
+        sleepScore
+        gender
+        correctAnswer
+        correctAnswerTime
+        wrongAnswer
+        wrongAnswerTime
+        almostCorrectAnswer
+        almostCorrectAnswerTime
         basetype
         createdAt
         updatedAt

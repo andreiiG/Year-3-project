@@ -223,3 +223,66 @@ export const onDeleteScoreTest2 = /* GraphQL */ `
     }
   }
 `;
+export const onCreateScoreTest3 = /* GraphQL */ `
+  subscription OnCreateScoreTest3 {
+    onCreateScoreTest3 {
+      id
+      username
+      age
+      sleephours
+      sleepScore
+      gender
+      correctAnswer
+      correctAnswerTime
+      wrongAnswer
+      wrongAnswerTime
+      almostCorrectAnswer
+      almostCorrectAnswerTime
+      basetype
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateScoreTest3 = /* GraphQL */ `
+  subscription OnUpdateScoreTest3 {
+    onUpdateScoreTest3 {
+      id
+      username
+      age
+      sleephours
+      sleepScore
+      gender
+      correctAnswer
+      correctAnswerTime
+      wrongAnswer
+      wrongAnswerTime
+      almostCorrectAnswer
+      almostCorrectAnswerTime
+      basetype
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteScoreTest3 = /* GraphQL */ `
+  subscription OnDeleteScoreTest3 {
+    onDeleteScoreTest3 {
+      id
+      username
+      age
+      sleephours
+      sleepScore
+      gender
+      correctAnswer
+      correctAnswerTime
+      wrongAnswer
+      wrongAnswerTime
+      almostCorrectAnswer
+      almostCorrectAnswerTime
+      basetype
+      createdAt
+      updatedAt
+    }
+  }
+`;

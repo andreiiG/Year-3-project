@@ -250,3 +250,75 @@ export const deleteScoreTest2 = /* GraphQL */ `
     }
   }
 `;
+export const createScoreTest3 = /* GraphQL */ `
+  mutation CreateScoreTest3(
+    $input: CreateScoreTest3Input!
+    $condition: ModelScoreTest3ConditionInput
+  ) {
+    createScoreTest3(input: $input, condition: $condition) {
+      id
+      username
+      age
+      sleephours
+      sleepScore
+      gender
+      correctAnswer
+      correctAnswerTime
+      wrongAnswer
+      wrongAnswerTime
+      almostCorrectAnswer
+      almostCorrectAnswerTime
+      basetype
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateScoreTest3 = /* GraphQL */ `
+  mutation UpdateScoreTest3(
+    $input: UpdateScoreTest3Input!
+    $condition: ModelScoreTest3ConditionInput
+  ) {
+    updateScoreTest3(input: $input, condition: $condition) {
+      id
+      username
+      age
+      sleephours
+      sleepScore
+      gender
+      correctAnswer
+      correctAnswerTime
+      wrongAnswer
+      wrongAnswerTime
+      almostCorrectAnswer
+      almostCorrectAnswerTime
+      basetype
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteScoreTest3 = /* GraphQL */ `
+  mutation DeleteScoreTest3(
+    $input: DeleteScoreTest3Input!
+    $condition: ModelScoreTest3ConditionInput
+  ) {
+    deleteScoreTest3(input: $input, condition: $condition) {
+      id
+      username
+      age
+      sleephours
+      sleepScore
+      gender
+      correctAnswer
+      correctAnswerTime
+      wrongAnswer
+      wrongAnswerTime
+      almostCorrectAnswer
+      almostCorrectAnswerTime
+      basetype
+      createdAt
+      updatedAt
+    }
+  }
+`;

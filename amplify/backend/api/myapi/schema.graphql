@@ -61,3 +61,20 @@ type ScoreTest2 @model
   trials : Int!
   basetype : String!
 }
+type ScoreTest3 @model
+@ key (name: "usernameScoreTest3",fields : ["basetype","username"], queryField: "ScoresByUsernameTest3")
+{
+  id : ID!
+  username : String!
+  age : Int!
+  sleephours : Int!
+  sleepScore: Int!
+  gender: String!
+  correctAnswer: Int!
+  correctAnswerTime: Int!
+  wrongAnswer: Int!
+  wrongAnswerTime : Int!
+  almostCorrectAnswer: Int!
+  almostCorrectAnswerTime: Int!
+  basetype : String!
+}

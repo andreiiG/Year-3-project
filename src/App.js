@@ -3,7 +3,7 @@ import './App.css';
 import { withAuthenticator } from 'aws-amplify-react'
 import Amplify, { Auth,API,graphqlOperation } from 'aws-amplify';
 import aws_exports from './aws-exports';
-import {createScoresTest1,createScoreTest2} from './graphql/mutations'
+import {createScoresTest1,createScoreTest2,createScoreTest3} from './graphql/mutations'
 import ArrowRight from './images/ArrowRight.jpg'
 import ArrowLeft from './images/ArrowLeft.jpg'
 import Plus from './images/plus.jpg'
@@ -120,6 +120,22 @@ class App extends Component {
     this.startInput=this.startInput.bind(this);
     this.startTimerTest3=this.startTimerTest3.bind(this);
     this.noAnswerTest3=this.noAnswerTest3.bind(this);
+    this.handleKeyPressTest3=this.handleKeyPressTest3.bind(this);
+    this.timeoutTest3=0;
+    this.timerTest3=0;
+    this.timerTest3FinishRound=0;
+    this.timerTest3FinishTotal=0;
+    this.correctAnswerTest3=0;
+    this.wrongAnswerTest3=0;
+    this.auxlistTest3=0;
+    this.wrongAnsTrialTest3=0;
+    this.rightAnsTrialTest3=0;
+    this.trialResultTest3=[];
+    this.trialCountTest3=0;
+    this.endTest3=this.endTest3.bind(this);
+    this.calculateDataTest3=this.calculateDataTest3.bind(this);
+    this.createScoreTest3F=this.createScoreTest3F.bind(this);
+    this.endPageTest3=this.endPageTest3.bind(this);
     
 }
 
@@ -218,6 +234,9 @@ class App extends Component {
    async createScoresTest2F()
    {
      try {
+       if(this.smallJumpNoAns+this.bigjumpNoAns>this.trialCount+this.correctanswer){
+         this.bigjumpNoAns--;
+       }
        console.log(this.state.username,this.age,this.sleephours,this.sleepScore, this.gender,this.correctanswer,this.wronganswer)
        const createInputTest2 ={ username: this.state.username, age: this.age, sleephours: this.sleephours,sleepScore: this.sleepScore,gender : this.gender,correctAnswer: this.correctanswer,
         wrongAnswer: this.wronganswer,bigjumpNoAns: this.bigjumpNoAns,smallJumpNoAns: this.smallJumpNoAns,bigJumpRightAns: this.bigJumpRightAns,smallJumpRightAns :this.smallJumpRightAns,bigJumpWrong: this.bigJumpWrong,
@@ -227,6 +246,19 @@ class App extends Component {
       } catch (error) {
         console.log('scoreTest 2 was not created ',error)
      }
+   }
+   async createScoreTest3F(Cans,TCans,Wans,TWans,ACans,TACans)
+   { 
+     try{
+      const createScoreTest3Dict ={username: this.state.username, age: this.age, sleephours: this.sleephours, sleepScore: this.sleepScore, gender : this.gender, correctAnswer: Cans,correctAnswerTime: TCans,wrongAnswer:Wans,
+        wrongAnswerTime:TWans,almostCorrectAnswer: ACans,almostCorrectAnswerTime:TACans,basetype: "score"}
+        console.log(createScoreTest3Dict)
+        await API.graphql(graphqlOperation(createScoreTest3,{input: createScoreTest3Dict}))
+        console.log('score create for '+this.state.username)
+      }catch(error){
+        console.log('score was not created ',error)
+      }
+        
    }
   //  async getuserscore(){
   //    try {
@@ -536,7 +568,7 @@ class App extends Component {
       this.skip=true;
       this.trialCount++;
       this.smalljump++
-      this.noanswerTimeout = setTimeout(this.noAnswer,900)
+      this.noanswerTimeout = setTimeout(this.noAnswer,1000)
 
     }
     else if(this.random_number ==10){
@@ -544,7 +576,7 @@ class App extends Component {
       this.skip=true;
       this.trialCount++;
       this.bigjump++;
-      this.noanswerTimeout = setTimeout(this.noAnswer,900)
+      this.noanswerTimeout = setTimeout(this.noAnswer,1000)
     }
     else{
       this.skip=false;
@@ -679,20 +711,148 @@ startTest3(){
   shuffled.push(list[random_number_test])
   console.log(shuffled)
   this.setState({instructionPageTest3:this.state.instructionPageTest3+1,listTest3:shuffled})
-  setTimeout(this.startInput,20000)
-  
+  this.auxlistTest3=shuffled
+  this.trialCountTest3++;
+  setTimeout(this.startInput,2000)
 }
 startInput(){
-this.setState({instructionPageTest3:this.state.instructionPageTest3+1})
+this.setState({instructionPageTest3:3})
 }
 prepareTest3(){
   this.setState({test3Started:true})
 }
 startTimerTest3(){
-  setTimeout(this.noAnswerTest3,20000)
+  this.timerTest3=new Date().getTime()
+  document.addEventListener("keydown", this.handleKeyPressTest3, false)
+  this.timeoutTest3= setTimeout(this.noAnswerTest3,20000)
 }
 noAnswerTest3(){
+  this.nextTrialTest3();
+  document.removeEventListener("keydown", this.handleKeyPressTest3, false)
+  this.trialResultTest3.push([this.state.listTest3,20000,this.wrongAnsTrialTest3,this.rightAnsTrialTest3])
+}
+handleKeyPressTest3(event){
 
+ // clearTimeout(this.timeoutTest3);
+ //c =67
+ //v= 86
+ //z=90
+ //x=88
+ //change to a switch
+ if(event.keyCode==67){
+    if(this.auxlistTest3[0]==3){
+      this.auxlistTest3.shift()
+      this.rightAnsTrialTest3++
+    }else{
+      this.auxlistTest3.shift()
+      this.wrongAnsTrialTest3++;
+    }
+ }
+ if(event.keyCode==86){
+    if(this.auxlistTest3[0]==4){
+      this.auxlistTest3.shift()
+      this.rightAnsTrialTest3++
+    }else{
+      this.auxlistTest3.shift()
+      this.wrongAnsTrialTest3++;
+    }
+  }
+  if(event.keyCode==88){
+      if(this.auxlistTest3[0]==2){
+        this.auxlistTest3.shift()
+        this.rightAnsTrialTest3++
+      }else{
+        this.auxlistTest3.shift()
+        this.wrongAnsTrialTest3++;
+      }
+    }
+  if(event.keyCode==90){
+      if(this.auxlistTest3[0]==1){
+        this.auxlistTest3.shift()
+        this.rightAnsTrialTest3++
+      }else{
+        this.auxlistTest3.shift()
+        this.wrongAnsTrialTest3++;
+      }
+ }
+ console.log(this.trialCountTest3)
+ if(this.auxlistTest3.length==0){
+   console.log('one trial finish')
+   clearTimeout(this.timeoutTest3)
+   document.removeEventListener("keydown", this.handleKeyPressTest3, false)
+   var auxtime= new Date().getTime()
+   var time= auxtime -this.startTimerTest3
+   this.trialResultTest3.push([this.state.listTest3,time,this.wrongAnsTrialTest3,this.rightAnsTrialTest3])
+   this.nextTrialTest3();
+
+ }
+}
+nextTrialTest3(){
+  if(this.trialCountTest3==10){
+    this.endPageTest3()
+  }else{
+    var list =[1,2,3,4]
+    const shuffled = list.sort(() => Math.random() - 0.5)
+    var random_number_test = Math.floor(Math.random()*(4-0))+0
+    shuffled.push(list[random_number_test])
+    this.setState({instructionPageTest3:2,listTest3:shuffled})
+    this.auxlistTest3=shuffled
+    setTimeout(this.startInput,20000)
+    this.trialCountTest3++;
+  }
+
+}
+
+endPageTest3(){
+  this.setState({instructionPageTest3:4})
+  setTimeout(this.endTest3,4000)
+  }
+
+endTest3(){
+  this.setState({test3Started:false,instructionPageTest3:1})
+  this.calculateDataTest3();
+}
+calculateDataTest3(){
+  var correctansaux=0;
+  var almostcorrectans=0;
+  var wrongans=0;
+  var timecorrect=0;
+  var timealmostcorrect=0;
+  var timewrong=0;
+  var meantimecorrect=0;
+  var meantimewrong=0;
+  var meanalmostright=0;
+  for(var j=0;j<this.trialResultTest3.length;j++){
+      // correct ans, wrong ans, almost correct ans, mean of time , mean time correct ans, mean time wrong ans, mean time almost correct ans, 
+      if(this.trialResultTest3[j][3]==5){
+        correctansaux++;
+        timecorrect+=this.trialResultTest3[j][1]
+      }else if(this.trialResultTest3[j][3]==4){
+        almostcorrectans++;
+        timealmostcorrect+=this.trialResultTest3[j][1];
+      }
+      else{
+        wrongans++;
+        timewrong+=this.trialResultTest3[j][1];
+      }
+  }
+  if(correctansaux==0){
+    meantimecorrect= timecorrect;
+  }else{
+    meantimecorrect= meantimecorrect + timecorrect/correctansaux;
+  }
+  if(wrongans==0){
+    meantimewrong= timewrong;
+  }else{
+    meantimewrong= meantimewrong+ timewrong/wrongans
+  }
+  if(almostcorrectans==0){
+    meantimecorrect= timealmostcorrect;
+  }else{
+    meanalmostright= meanalmostright+ timealmostcorrect/almostcorrectans
+  }
+
+  this.createScoreTest3F(correctansaux,meantimecorrect,wrongans,meantimewrong,almostcorrectans,meanalmostright)
 }
 
 
@@ -1047,8 +1207,15 @@ noAnswerTest3(){
         case 3: {
           return(
             <div>
-              <div className="timerTest3Text">Timer started !</div> 
+              <div className="timerTest3Text">Timer started !</div>
             {this.startTimerTest3()}
+            </div>
+          )
+        }
+        case 4:{
+          return(
+            <div>
+              <div className="timerTest3Text">Test Finished</div>
             </div>
           )
         }
@@ -1072,6 +1239,7 @@ noAnswerTest3(){
             <br></br>
             <button className ="myButton" onClick={this.submitForm}style={{ marginLeft: '1.5rem' }}>Start First Test</button>
             <button className ="myButton" onClick={this.startTest2}style={{ marginLeft: '1.5rem' }}> Start Second Test </button>
+            <button className ="myButton" onClick={this.prepareTest3}style={{ marginLeft: '1.5rem' }}> Start Third Test </button>
 
           </header>
               
@@ -1080,6 +1248,6 @@ noAnswerTest3(){
     }
   }
 }
-//            <button className ="myButton" onClick={this.prepareTest3}style={{ marginLeft: '1.5rem' }}> Start Third Test </button>
+           
 
 export default withAuthenticator(App, true);
