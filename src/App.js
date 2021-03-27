@@ -792,7 +792,6 @@ handleKeyPressTest3(event){
 }
 nextTrialTest3(){
   if(this.trialCountTest3==10){
-    clearTimeout(this.timeoutTest3)
     this.endPageTest3()
   }else{
     var list =[1,2,3,4]
@@ -848,12 +847,12 @@ calculateDataTest3(){
   if(wrongans==0){
     meantimewrong= timewrong;
   }else{
-    meantimewrong= meantimewrong+ timewrong/wrongans
+    meantimewrong= timewrong/wrongans
   }
   if(almostcorrectans==0){
-    meantimecorrect= timealmostcorrect;
+    meanalmostright= timealmostcorrect;
   }else{
-    meanalmostright= meanalmostright+ timealmostcorrect/almostcorrectans
+    meanalmostright= timealmostcorrect/almostcorrectans
   }
 
   this.createScoreTest3F(correctansaux,parseInt(meantimecorrect),wrongans,parseInt(meantimewrong),almostcorrectans,parseInt(meanalmostright))
