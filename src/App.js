@@ -792,6 +792,7 @@ handleKeyPressTest3(event){
 }
 nextTrialTest3(){
   if(this.trialCountTest3==10){
+    clearTimeout(this.timeoutTest3)
     this.endPageTest3()
   }else{
     var list =[1,2,3,4]
@@ -799,7 +800,7 @@ nextTrialTest3(){
     var random_number_test = Math.floor(Math.random()*(4-0))+0
     shuffled.push(list[random_number_test])
     this.setState({instructionPageTest3:2,listTest3:shuffled})
-    this.auxlistTest3=shuffled
+    this.auxlistTest3=shuffled;
     setTimeout(this.startInput,15000)
     this.trialCountTest3++;
   }
@@ -1179,7 +1180,7 @@ calculateDataTest3(){
       switch(this.state.instructionPageTest3){
         default:{
           return(
-            <div>Something went wrong</div>
+            <div>Something went wrong </div>
           )
         }
         case 1:{
