@@ -123,5 +123,17 @@
     left: 35%;
     font-size:70px;
   }
+  .plusInstr{
+    left: 13%;
+    position: absolute;
+  }
+  .plusInstr2{
+    left: 28%;
+    position: absolute;
+  }
+  .arrowsIntr{
+    left: 15%;
+    position: absolute;
+  }
 
    

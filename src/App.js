@@ -894,37 +894,29 @@ calculateDataTest3(){
           case 2:{
             return(
               <div id="instructionPage2" className="instructionsPage">
-              <p>There will always be a cross in the centre of the screen, and the arrows will appear just above or below the cross.</p>
-              <center>
-                <table id="instructionPageTable">
-                  <tbody>
-                  <tr>
-                  <td><img src={ArrowLeft} alt="left Arrow" className="target" /><img src={ArrowLeft} alt="left Arrow" className="target" /><img src={ArrowLeft} alt="left Arrow" className="target" /><img src={ArrowLeft} alt="left Arrow" className="target" /></td>
-                    <td className="spacing"></td>
-                  </tr>
-                  <tr>
-                    <td className="spacing"></td>
-                    <td className="spacing"></td>
-                    <td className="spacing"></td>
-                  </tr>
-                  <tr>
-                    <td><img src={Plus} alt="plus sign" className="cue" /></td>
-                    <td className="spacing">OR</td>
-                    <td><img src={Plus} alt="plus sign" className="cue" /></td>
-                  </tr>
-                  <tr>
-                    <td className="spacing"></td>
-                    <td className="spacing"></td>
-                    <td className="spacing"></td>
-                  </tr>
-                  <tr>
-                    <td className="spacing"></td>
-                    <td className="spacing"></td>
-                    <td><img src={ArrowLeft} alt="left Arrow" /><img src={ArrowLeft} alt="left Arrow" /><img src={ArrowLeft} alt="left Arrow" /><img src={ArrowLeft} alt="left Arrow" /><img src={ArrowLeft} alt="left Arrow" /></td>
-                  </tr>
-                  </tbody>
-                </table>
-              </center>
+              <p>There will always be a cross in the centre of the screen, and the arrows will appear just above or below the cross. That can be seen in the exemple below.</p>
+              <img src={ArrowLeft} alt="left Arrow" className="target" /><img src={ArrowLeft} alt="left Arrow" className="target" /><img src={ArrowLeft} alt="left Arrow" className="target" /><img src={ArrowLeft} alt="left Arrow" className="target" /><img src={ArrowLeft} alt="left Arrow" className="target" />
+              <br></br>
+              <img src={Plus} alt="plus sign" className="cue" className="plusInstr" />
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <img src={Plus} alt="plus sign" className="cue"  className="plusInstr2" />
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <div className="arrowsIntr">              <img src={ArrowLeft} alt="left Arrow" /><img src={ArrowLeft} alt="left Arrow" /><img src={ArrowLeft} alt="left Arrow" /><img src={ArrowLeft} alt="left Arrow" /><img src={ArrowLeft} alt="left Arrow" />
+              </div>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
               <p>Please try to keep your eyes fixed on the cross during the test, rather than moving them to look at the arrows .</p>
               <button className="myButton" style={{outline: 'none'}} onClick={this.lastInstruction} >Previous</button>
               <button className="myButton" style={{outline: 'none'}} onClick={this.nextInstruction} >Next</button>
