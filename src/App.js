@@ -138,6 +138,7 @@ class App extends Component {
     this.endPageTest3=this.endPageTest3.bind(this);
     this.endTestFinal=this.endTestFinal.bind(this);
     this.endTestFinalWait=this.endTestFinalWait.bind(this);
+    this.endTest2Final=this.endTest2Final.bind(this);
     
 }
 
@@ -655,6 +656,11 @@ class App extends Component {
   }
   endTest2(){
     this.createScoresTest2F();
+
+    this.setState({instructionPageTest2:4})
+    setTimeout(this.endTest2Final,4000)
+  }
+  endTest2Final(){
     this.setState({instructionPageTest2:1,rotate:0,test2Started:false})
     this.trialCount=0;
   }
@@ -1185,12 +1191,19 @@ calculateDataTest3(){
         }
         case 3:{
           return(
-            <body className="pageTest2">
+            <div className="pageTest2">
               
               <div className="circle"  style={{background: this.color}}></div>
               {this.startDemo()}
               <div className="hand second" style={{transform: `translateX(-50%) rotate(${this.state.rotate}deg)`}}> </div>
-          </body>
+          </div>
+          )
+        }
+        case 4 :{
+          return(
+            <div>
+              <div className="timerTest3Text">Test Finished</div>
+            </div>
           )
         }
       }
