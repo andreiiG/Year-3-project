@@ -567,6 +567,18 @@ class App extends Component {
    //test2 functions
    startTest2(){
      this.setState({test2Started : true})
+     this.trialCount=0;
+     this.color="black"
+     this.smalljump=0;
+     this.bigjump=0;
+     this.random_number=0;
+     this.bigjumpNoAns=0;
+     this.smallJumpNoAns=0;
+     this.bigJumpRightAns=0;
+     this.smallJumpRightAns=0;
+     this.smallJumpWrong=0;
+     this.bigJumpWrong=0;
+
    }
    startClock(){
     this.random_number = Math.floor(Math.random()*(11-1))+1
@@ -644,6 +656,7 @@ class App extends Component {
   endTest2(){
     this.createScoresTest2F();
     this.setState({instructionPageTest2:1,rotate:0,test2Started:false})
+    this.trialCount=0;
   }
 
 
@@ -707,6 +720,7 @@ startDemoTest2(){
  }
  endDemo2(){
   this.setState({instructionPageTest2:1,rotate:0})
+  this.trialCount=0;
  }
 
 //third test
@@ -1161,12 +1175,12 @@ calculateDataTest3(){
         }
         case 2:{
           return(
-            <body className="pageTest2">
+            <div className="pageTest2">
               
               <div className="circle"  style={{background: this.color}}></div>
               {this.setClock()}
               <div className="hand second" style={{transform: `translateX(-50%) rotate(${this.state.rotate}deg)`}}> </div>
-          </body>
+          </div>
           )
         }
         case 3:{
