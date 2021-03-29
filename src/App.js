@@ -1238,7 +1238,7 @@ calculateDataTest3(){
             <br></br>
             <label>Enter your gender* : <input type="text" className="inputFields" name ="gender" placeholder="Gender" onChange={this.updateGender} style={{ marginLeft: '3.8rem' }}></input></label>
             <br></br>
-            <label>Enter hours slept last night* : <input type="text" className="inputFields" name ="sleepH" placeholder="Sleep Hours" onChange={this.updateSleep} ></input></label>
+            <label>Enter hours slept last night* : <input type="text" className="inputFields" name ="sleepH" placeholder="Sleep Hours (only whole numbers)" onChange={this.updateSleep} ></input></label>
             <br></br>
             <label>Enter sleep score : <input type="text" className="inputFields" name ="Sleep Score" placeholder="Sleep Score(for FitBit)" onChange={this.updateSleepScore} style={{ marginLeft: '4.8rem' }}></input></label>
             
