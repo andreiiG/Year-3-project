@@ -1147,7 +1147,7 @@ calculateDataTest3(){
           return(
             <div>
                         <p>The second test is called Computerized Mackworth Clock Test</p>
-                        <p>In this test you watch the clock hand move around. When the hand jumps more then normally,you press space bar immediately.   </p>
+                        <p>In this test you watch the clock hand move around. When the hand jumps more than normally,you press space bar immediately.   </p>
                         <p>You will get an error signal(red light in the middle) when you press the space bar key when there was no unusual clockhand jumping or when you didn't detect it.</p>
                         <p>You will get a positive feedback(green light) if you press the space bar correctly.</p>
                         <p>Remember that you need to answer in one second , the clockhand moves once per second.</p>
