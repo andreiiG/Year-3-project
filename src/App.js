@@ -1196,7 +1196,7 @@ calculateDataTest3(){
             <p style={{ marginLeft: '1.5rem' }}>The z key represents 1, the x key represents 2, the c key represents 3 and the v key represents 4</p>
             <p style={{ marginLeft: '1.5rem' }}>Exemple: the number 43212 appears on the screen. </p>
             <p style={{ marginLeft: '1.5rem' }}>After the the number disappears you need to press v c x z x for a correct answer.</p>
-            <p style={{ marginLeft: '1.5rem' }}>You have 15 seconds to press the 5 keys </p>
+            <p style={{ marginLeft: '1.5rem' }}>You have 15 seconds to press the 5 keys after Timer started appears on the screen.</p>
             <button className="myButton" onClick={this.test3MainPage}  style={{ marginLeft: '1.5rem' }}>Previous</button>
             <button className="myButton" onClick={this.startTest3}  style={{ marginLeft: '1.5rem' }}>Start Test</button>
     
