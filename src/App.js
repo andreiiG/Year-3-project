@@ -902,16 +902,13 @@ calculateDataTest3(){
               <br></br>
               <br></br>
               <br></br>
-              <br></br>
               <img src={Plus} alt="plus sign" className="cue"  className="plusInstr2" />
-              <br></br>
               <br></br>
               <br></br>
               <br></br>
               <br></br>
               <div className="arrowsIntr">              <img src={ArrowLeft} alt="left Arrow" /><img src={ArrowLeft} alt="left Arrow" /><img src={ArrowLeft} alt="left Arrow" /><img src={ArrowLeft} alt="left Arrow" /><img src={ArrowLeft} alt="left Arrow" />
               </div>
-              <br></br>
               <br></br>
               <br></br>
               <br></br>
