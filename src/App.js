@@ -136,6 +136,8 @@ class App extends Component {
     this.calculateDataTest3=this.calculateDataTest3.bind(this);
     this.createScoreTest3F=this.createScoreTest3F.bind(this);
     this.endPageTest3=this.endPageTest3.bind(this);
+    this.endTestFinal=this.endTestFinal.bind(this);
+    this.endTestFinalWait=this.endTestFinalWait.bind(this);
     
 }
 
@@ -351,9 +353,15 @@ class App extends Component {
       this.trialCount=this.state.trialset.length
       this.trialResult=[]
     }else{
-      this.setState({testStarted : false,trialset: this.trialsetvar,instructionPageTest1:1})
+      this.setState({instructionPageTest1:15})
       this.calculateTest1Data();
   }
+  }
+  endTestFinal(){
+    this.setState({testStarted : false,trialset: this.trialsetvar,instructionPageTest1:1})
+  }
+  endTestFinalWait(){
+    setTimeout(this.endTestFinal,4000)
   }
   endtestEsc(){
     this.setState({testStarted : false,trialset: this.trialsetvar,instructionPageTest1:1})
@@ -1116,6 +1124,14 @@ calculateDataTest3(){
                             <img src={Plus} className="plus"  alt="middle plus"  />
                             {this.waitStage()}
                           </div>
+            )
+          }
+          case 15:{
+            return(
+              <div>
+                <div className="timerTest3Text">Test Finished</div>
+                {this.endTestFinalWait()}
+              </div>
             )
           }
         }
