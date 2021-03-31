@@ -747,6 +747,17 @@ startInput(){
 this.setState({instructionPageTest3:3})
 }
 prepareTest3(){
+  this.timeoutTest3=0;
+    this.timerTest3=0;
+    this.timerTest3FinishRound=0;
+    this.timerTest3FinishTotal=0;
+    this.correctAnswerTest3=0;
+    this.wrongAnswerTest3=0;
+    this.auxlistTest3=0;
+    this.wrongAnsTrialTest3=0;
+    this.rightAnsTrialTest3=0;
+    this.trialResultTest3=[];
+    this.trialCountTest3=0;
   this.setState({test3Started:true})
 }
 startTimerTest3(){
