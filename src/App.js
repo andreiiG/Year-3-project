@@ -377,8 +377,7 @@ class App extends Component {
     
 }
   waitStage(){
-    //change to 3000
-      setTimeout(this.prefixastionTime,3000)
+      setTimeout(this.prefixastionTime,1600)
     }
   prefixastionTime(){
       this.setState({instructionPageTest1: 5})
