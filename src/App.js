@@ -139,6 +139,8 @@ class App extends Component {
     this.endTestFinal=this.endTestFinal.bind(this);
     this.endTestFinalWait=this.endTestFinalWait.bind(this);
     this.endTest2Final=this.endTest2Final.bind(this);
+    this.startDemoTest3=this.startDemoTest3.bind(this);
+
     
 }
 
@@ -209,7 +211,8 @@ class App extends Component {
       instructionPageTest2:1,
       demoTest1Started:false,
       listTest3:[],
-      instructionPageTest3:1
+      instructionPageTest3:1,
+      test3Demo: false
     }
 
   // async createScoresf(dictionary){
@@ -742,6 +745,17 @@ startTest3(){
   this.trialCountTest3++;
   setTimeout(this.startInput,15000)
 }
+startDemoTest3(){
+  var list =[1,2,3,4]
+  const shuffled = list.sort(() => Math.random() - 0.5)
+  var random_number_test = Math.floor(Math.random()*(4-0))+0
+  shuffled.push(list[random_number_test])
+  console.log(shuffled)
+  this.setState({instructionPageTest3:this.state.instructionPageTest3+1,listTest3:shuffled,test3Demo:true})
+  this.auxlistTest3=shuffled
+  this.trialCountTest3++;
+  setTimeout(this.startInput,15000)
+}
 startInput(){
 this.setState({instructionPageTest3:3})
 }
@@ -829,7 +843,10 @@ handleKeyPressTest3(event){
  }
 }
 nextTrialTest3(){
-  if(this.trialCountTest3==10){
+  if(this.state.test3Demo && this.trialCountTest3==5){
+    console.log("arrives here")
+    this.endPageTest3()
+  }else if(this.trialCountTest3==10){
     this.endPageTest3()
   }else{
     var list =[1,2,3,4]
@@ -838,7 +855,7 @@ nextTrialTest3(){
     shuffled.push(list[random_number_test])
     this.setState({instructionPageTest3:2,listTest3:shuffled})
     this.auxlistTest3=shuffled;
-    setTimeout(this.startInput,15000)
+    setTimeout(this.startInput,150)
     this.trialCountTest3++;
   }
 
@@ -850,8 +867,10 @@ endPageTest3(){
   }
 
 endTest3(){
-  this.setState({test3Started:false,instructionPageTest3:1})
-  this.calculateDataTest3();
+  if(!this.state.test3Demo){
+    this.calculateDataTest3();
+  }
+  this.setState({test3Started:false,instructionPageTest3:1,test3Demo:false})
 }
 calculateDataTest3(){
   var correctansaux=0;
@@ -1236,6 +1255,8 @@ calculateDataTest3(){
             <p style={{ marginLeft: '1.5rem' }}>You have 15 seconds to press the 5 keys after Timer started appears on the screen.</p>
             <button className="myButton" onClick={this.test3MainPage}  style={{ marginLeft: '1.5rem' }}>Previous</button>
             <button className="myButton" onClick={this.startTest3}  style={{ marginLeft: '1.5rem' }}>Start Test</button>
+            <button className="myButton" onClick={this.startDemoTest3}  style={{ marginLeft: '1.5rem' }}>Start Demo</button>
+    
     
             </div>
           )
