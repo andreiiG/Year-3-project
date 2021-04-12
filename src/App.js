@@ -855,7 +855,7 @@ nextTrialTest3(){
     shuffled.push(list[random_number_test])
     this.setState({instructionPageTest3:2,listTest3:shuffled})
     this.auxlistTest3=shuffled;
-    setTimeout(this.startInput,150)
+    setTimeout(this.startInput,15000)
     this.trialCountTest3++;
   }
 
