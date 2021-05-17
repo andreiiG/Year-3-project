@@ -1,0 +1,2 @@
+Inside this folders there are all the files needed to recreate the website on the aws platform.
+The code for all the test can be find in src/App.js

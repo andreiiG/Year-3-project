@@ -942,8 +942,8 @@ calculateDataTest3(){
                         </center>
                         <p>You must pay attention to the <b><i>CENTRAL</i></b> arrow, and indicate which way it is pointing by pressing the LEFT or RIGHT arrow keys on the keyboard.
                         </p>
-                        <button className="myButton"  style={{outline: 'none'}} onClick={this.test1MainPage} >Previous</button>
-                        <button className="myButton" style={{outline: 'none'}} onClick={this.nextInstruction} >Next</button>
+                        <button className="myButton"  style={{outline: 'none'}} onClick={this.test1MainPage} style={{ marginLeft: '1.5rem' }}>Previous</button>
+                        <button className="myButton" style={{outline: 'none'}} onClick={this.nextInstruction}style={{ marginLeft: '1.5rem' }} >Next</button>
                     </div>
                   </div>
                 )
@@ -972,8 +972,8 @@ calculateDataTest3(){
               <br></br>
               <br></br>
               <p>Please try to keep your eyes fixed on the cross during the test, rather than moving them to look at the arrows .</p>
-              <button className="myButton" style={{outline: 'none'}} onClick={this.lastInstruction} >Previous</button>
-              <button className="myButton" style={{outline: 'none'}} onClick={this.nextInstruction} >Next</button>
+              <button className="myButton" style={{outline: 'none'}} onClick={this.lastInstruction} style={{ marginLeft: '1.5rem' }}>Previous</button>
+              <button className="myButton" style={{outline: 'none'}} onClick={this.nextInstruction} style={{ marginLeft: '1.5rem' }}>Next</button>
 
             </div>
             )
@@ -982,10 +982,10 @@ calculateDataTest3(){
             return(
               <div id="instructionPage3" className="instructionsPage">
               <p>Sometimes, one or more asterisks <img src={Star} className="cue imageintext"style={{ resizeMode: "cover",height: 35,width: 35 }} alt="asterix"/> will appear shortly before the arrows.</p>
-              <p>When they are presented, the asterisks always appear exactly  400ms second before the arrows .</p>
+              <p>When they are presented, the asterisks always appear exactly  400ms before the arrows .</p>
               <p>If only one asterisk appears, and it is above or below the cross, it also tells you the location in which the arrows will appear.</p>
-              <button className="myButton" style={{outline: 'none'}} onClick={this.lastInstruction} >Previous</button>
-              <button className="myButton" style={{outline: 'none'}} onClick={this.nextInstruction} >Next</button>
+              <button className="myButton" style={{outline: 'none'}} onClick={this.lastInstruction}style={{ marginLeft: '1.5rem' }} >Previous</button>
+              <button className="myButton" style={{outline: 'none'}} onClick={this.nextInstruction} style={{ marginLeft: '1.5rem' }}>Next</button>
             </div>
             )
           }
@@ -996,9 +996,9 @@ calculateDataTest3(){
                 <p>This test measures both your reaction time and your accuracy, so it is important to respond as quickly as you can, but without making too many errors.</p>
                 <p>To facilitate quick responding, keep your left and right index fingers over the LEFT and RIGHT arrow keys respectively.</p>
                 <p>The demo contains 8 trials for practice.</p>
-                <button className="myButton" style={{outline: 'none'}} onClick={this.lastInstruction} >Previous</button>
-                <button className="myButton" style={{outline: 'none'}} onClick={this.nextInstruction} >StartTest</button>
-                <button className="myButton" style={{outline: 'none'}} onClick={this.startDemoTest1 } >Start Demo</button>
+                <button className="myButton" style={{outline: 'none'}} onClick={this.lastInstruction}style={{ marginLeft: '1.5rem' }} >Previous</button>
+                <button className="myButton" style={{outline: 'none'}} onClick={this.nextInstruction}style={{ marginLeft: '1.5rem' }} >StartTest</button>
+                <button className="myButton" style={{outline: 'none'}} onClick={this.startDemoTest1 } style={{ marginLeft: '1.5rem' }}>Start Demo</button>
               </div>
             )
           }
@@ -1202,9 +1202,9 @@ calculateDataTest3(){
                         <p>Remember that you need to answer in one second , the clockhand moves once per second.</p>
                         <p>To stop the Demo press the escape key otherwise the Demo won't stop</p>
                         <p>The test itself last for 20 jumps</p>
-                        <button className="myButton" onClick={this.test2MainPage} >Previous</button>
-                        <button className="myButton" onClick={this.startDemoTest2}>Start Demo</button>
-                        <button className="myButton" onClick={this.nextInstructionTest2} >Start Test</button>
+                        <button className="myButton" onClick={this.test2MainPage} style={{ marginLeft: '1.5rem' }}>Previous</button>
+                        <button className="myButton" onClick={this.startDemoTest2}style={{ marginLeft: '1.5rem' }}>Start Demo</button>
+                        <button className="myButton" onClick={this.nextInstructionTest2}style={{ marginLeft: '1.5rem' }} >Start Test</button>
              </div>
           )
         }
